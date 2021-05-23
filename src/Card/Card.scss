@@ -1,0 +1,9 @@
+@use 'sass:math';
+
+.card {
+  background-color: #F4EDED;
+  width: 30vmin;
+  height: math.sqrt(2) * 30vmin;
+  border-radius: 1rem;
+  color: #36827F;
+}
