@@ -19,4 +19,36 @@ describe('Card', () => {
 
         expect(screen.getAllByText(Suits.Clubs).length).toEqual(4)
     })
+
+    it('renders a black card if the suit is clubs', () => {
+        const card = { value: 4, suit: Suits.Clubs }
+
+        render(<Card card={card} />)
+
+        expect(screen.getByTestId('card')).toHaveAttribute('class', 'black-card');
+    })
+
+    it('renders a black card if the suit is spades', () => {
+        const card = { value: 4, suit: Suits.Spades }
+
+        render(<Card card={card} />)
+
+        expect(screen.getByTestId('card')).toHaveAttribute('class', 'black-card');
+    })
+
+    it('renders a red card if the suit is hearts', () => {
+        const card = { value: 4, suit: Suits.Hearts }
+
+        render(<Card card={card} />)
+
+        expect(screen.getByTestId('card')).toHaveAttribute('class', 'red-card');
+    })
+
+    it('renders a red card if the suit is diamonds', () => {
+        const card = { value: 4, suit: Suits.Diamonds }
+
+        render(<Card card={card} />)
+
+        expect(screen.getByTestId('card')).toHaveAttribute('class', 'red-card');
+    })
 })

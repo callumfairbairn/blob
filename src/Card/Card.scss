@@ -2,12 +2,20 @@
 $base-size: 15vmin;
 $font-size: 4vmin;
 
-.card {
+.black-card {
+  color: black;
+}
+
+.red-card {
+  color: red;
+}
+
+#card {
   background-color: #F4EDED;
   width: $base-size;
   height: math.sqrt(2) * $base-size;
   border-radius: 1rem;
-  color: #36827F;
+  box-shadow: 0 0 1rem 3pt black;
   display: flex;
   justify-content: center;
   align-items: center;
