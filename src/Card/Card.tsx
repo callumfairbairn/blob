@@ -8,7 +8,21 @@ type CardProps = {
 export const Card = ({ value }: CardProps) => {
     return (
         <div className="card" >
-            {value}
+            <div className="suit">
+                ♠
+            </div>
+            <div className="suit">
+                ♠
+            </div>
+            <div className="number">
+                {value}
+            </div>
+            <div className="suit">
+                ♠
+            </div>
+            <div className="suit">
+                ♠
+            </div>
         </div>
     )
 }
