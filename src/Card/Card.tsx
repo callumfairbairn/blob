@@ -1,27 +1,28 @@
 import React from 'react'
 import './Card.scss'
+import { CardType } from '../types/card'
 
 type CardProps = {
-    value: number
+    card: CardType
 }
 
-export const Card = ({ value }: CardProps) => {
+export const Card = ({ card }: CardProps) => {
     return (
-        <div className="card" >
+        <div className="card">
             <div className="suit">
-                ♠
+                {card.suit}
             </div>
             <div className="suit">
-                ♠
+                {card.suit}
             </div>
             <div className="number">
-                {value}
+                {card.value}
             </div>
             <div className="suit">
-                ♠
+                {card.suit}
             </div>
             <div className="suit">
-                ♠
+                {card.suit}
             </div>
         </div>
     )
