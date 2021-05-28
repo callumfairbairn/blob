@@ -1,14 +1,14 @@
 @use 'sass:math';
-$card-width: 12vmin;
+$card-width: 10vmin;
 $card-height: math.sqrt(2) * $card-width;
-$card-font-size: 3vmin;
+$card-font-size: 2.5vmin;
 $suit-size-multiplier: 0.5;
 
-.black-card {
+.blackCard {
   color: black;
 }
 
-.red-card {
+.redCard {
   color: red;
 }
 

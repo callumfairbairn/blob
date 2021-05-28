@@ -5,7 +5,9 @@ $pile-width: 2.5; //in units of card-width
   display: flex;
   flex-wrap: wrap;
   width: $card-width * $pile-width;
+  height: $card-height * $pile-width;
   margin-bottom: $card-height * 0.5;
+  margin-top: $card-height * 0.5;
 
   .pileCard {
     height: $card-height * 0.75;

@@ -10,7 +10,7 @@ type CardProps = {
 
 
 export const Card = ({ card, zIndex }: CardProps) => {
-  const className = (card.suit === Suits.Clubs || card.suit === Suits.Spades) ? 'black-card' : 'red-card'
+  const className = (card.suit === Suits.Clubs || card.suit === Suits.Spades) ? 'blackCard' : 'redCard'
   return (
     <div className={className} data-testid="card" id="card" style={{ zIndex }}>
       <div className="suit">

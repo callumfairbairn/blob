@@ -34,7 +34,7 @@ describe('Card', () => {
 
       render(<Card card={card}/>)
 
-      expect(screen.getByTestId('card')).toHaveAttribute('class', 'black-card');
+      expect(screen.getByTestId('card')).toHaveAttribute('class', 'blackCard');
     })
 
     it('renders a black card if the suit is spades', () => {
@@ -42,7 +42,7 @@ describe('Card', () => {
 
       render(<Card card={card}/>)
 
-      expect(screen.getByTestId('card')).toHaveAttribute('class', 'black-card');
+      expect(screen.getByTestId('card')).toHaveAttribute('class', 'blackCard');
     })
 
     it('renders a red card if the suit is hearts', () => {
@@ -50,7 +50,7 @@ describe('Card', () => {
 
       render(<Card card={card}/>)
 
-      expect(screen.getByTestId('card')).toHaveAttribute('class', 'red-card');
+      expect(screen.getByTestId('card')).toHaveAttribute('class', 'redCard');
     })
 
     it('renders a red card if the suit is diamonds', () => {
@@ -58,7 +58,7 @@ describe('Card', () => {
 
       render(<Card card={card}/>)
 
-      expect(screen.getByTestId('card')).toHaveAttribute('class', 'red-card');
+      expect(screen.getByTestId('card')).toHaveAttribute('class', 'redCard');
     })
   })
 })

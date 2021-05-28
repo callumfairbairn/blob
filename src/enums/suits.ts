@@ -1,7 +1,7 @@
 export enum Suits {
-    Clubs = "♣",
-    Diamonds = "♦",
-    Hearts = "♥",
-    Spades = "♠"
+  Clubs = "♣",
+  Diamonds = "♦",
+  Hearts = "♥",
+  Spades = "♠"
 
 }

@@ -10,8 +10,9 @@
 
   .game {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
-    width: 7 * $card-width;
+    width: 10 * $card-width;
+    height: 8 * $card-width;
   }
 }

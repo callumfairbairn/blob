@@ -2,6 +2,32 @@
 
 .hand {
   display: flex;
+
+  .leftHandCard, .rightHandCard {
+    height: $card-height * 0.4;
+  }
+
+  .backHandCard {
+    width: $card-width * 0.8;
+  }
+}
+
+#leftHand {
+  flex-direction: column;
+  height: $card-height * 7 * 0.5;
+}
+
+#rightHand {
+  flex-direction: column;
+  height: $card-height * 7 * 0.5;
+}
+
+#frontHand {
+  width: 100%;
   justify-content: center;
-  width: 7 * $card-width;
+}
+
+#backHand {
+  justify-content: center;
+  width: 100%;
 }
