@@ -1,12 +1,10 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import './CardBack.scss'
+import { AppContext } from '../../AppContext/AppContext'
 
 const backgroundColour = '#8A8E91'
 const diamondColour1 = '#855A5C'
 const diamondColour2 = '#66101F'
-
-const xNumberOfDiamonds = 10;
-const yNumberOfDiamonds = 10;
 
 const fillBackground = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => {
   ctx.fillStyle = backgroundColour;
@@ -18,31 +16,32 @@ const fillBackground = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement
   ctx.fill();
 }
 
-const fillDiamond = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, x: number, y: number) => {
-  const diamondWidth = canvas.width / xNumberOfDiamonds
-  const diamondHeight = canvas.height / yNumberOfDiamonds
-  const xOffset = x * diamondWidth
-  const yOffset = y * diamondHeight
-
-  ctx.fillStyle = (x + y) % 2 === 0 ? diamondColour1 : diamondColour2 ;
-  ctx.beginPath();
-  ctx.moveTo(xOffset, yOffset + diamondHeight / 2);
-  ctx.lineTo(xOffset + diamondWidth / 2, yOffset);
-  ctx.lineTo(xOffset + diamondWidth, yOffset + diamondHeight / 2);
-  ctx.lineTo(xOffset + diamondWidth / 2, yOffset + diamondHeight);
-  ctx.fill();
-}
-
 export const CardBack = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const { cardBackDiamondNumber } = useContext(AppContext)
+
+  const fillDiamond = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, x: number, y: number) => {
+    const diamondWidth = canvas.width / cardBackDiamondNumber
+    const diamondHeight = canvas.height / cardBackDiamondNumber
+    const xOffset = x * diamondWidth
+    const yOffset = y * diamondHeight
+
+    ctx.fillStyle = (x + y) % 2 === 0 ? diamondColour1 : diamondColour2 ;
+    ctx.beginPath();
+    ctx.moveTo(xOffset, yOffset + diamondHeight / 2);
+    ctx.lineTo(xOffset + diamondWidth / 2, yOffset);
+    ctx.lineTo(xOffset + diamondWidth, yOffset + diamondHeight / 2);
+    ctx.lineTo(xOffset + diamondWidth / 2, yOffset + diamondHeight);
+    ctx.fill();
+  }
 
   useEffect(() => {
     const canvas = canvasRef.current
     const ctx = canvas?.getContext('2d');
     if (ctx && canvas) {
       fillBackground(ctx, canvas)
-      for (let x = 0; x < xNumberOfDiamonds; x++) {
-        for (let y = 0; y < yNumberOfDiamonds; y++) {
+      for (let x = 0; x < cardBackDiamondNumber; x++) {
+        for (let y = 0; y < cardBackDiamondNumber; y++) {
           fillDiamond(ctx, canvas, x, y);
         }
       }
