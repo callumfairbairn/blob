@@ -1,0 +1,17 @@
+@import "components/Card/Card";
+
+.App {
+  display: flex;
+  background-color: #282C34;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+
+  .game {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 7 * $card-width;
+  }
+}

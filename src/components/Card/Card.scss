@@ -1,6 +1,7 @@
 @use 'sass:math';
-$base-size: 15vmin;
-$font-size: 4vmin;
+$card-width: 12vmin;
+$card-height: math.sqrt(2) * $card-width;
+$card-font-size: 3vmin;
 $suit-size-multiplier: 0.5;
 
 .black-card {
@@ -13,8 +14,8 @@ $suit-size-multiplier: 0.5;
 
 #card {
   background-color: #F4EDED;
-  width: $base-size;
-  height: math.sqrt(2) * $base-size;
+  width: $card-width;
+  height: $card-height;
   border-radius: 1rem;
   box-shadow: 0 0 1rem 3pt black;
   display: flex;
@@ -27,17 +28,17 @@ $suit-size-multiplier: 0.5;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: $font-size;
-    width: $base-size * $suit-size-multiplier;
-    height: math.sqrt(2) / 3 * $base-size;
+    font-size: $card-font-size;
+    width: $card-width * $suit-size-multiplier;
+    height: math.sqrt(2) / 3 * $card-width;
   }
 
   .number {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: $font-size * 1.5;
-    width: $base-size;
-    height: math.sqrt(2) / 3 * $base-size;
+    font-size: $card-font-size * 1.5;
+    width: $card-width;
+    height: math.sqrt(2) / 3 * $card-width;
   }
 }

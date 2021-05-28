@@ -1,0 +1,28 @@
+@import "../Card/Card";
+$pile-width: 2.5; //in units of card-width
+
+.pile {
+  display: flex;
+  flex-wrap: wrap;
+  width: $card-width * $pile-width;
+  margin-bottom: $card-height * 0.5;
+
+  .pileCard {
+    height: $card-height * 0.75;
+  }
+
+  #backCard {
+    display: flex;
+    justify-content: center;
+    width: $card-width * $pile-width;
+  }
+  #leftCard {
+    display: flex;
+    width: $card-width * ($pile-width - 1);
+  }
+  #frontCard {
+    display: flex;
+    justify-content: center;
+    width: $card-width * $pile-width;
+  }
+}

@@ -1,3 +1,7 @@
+@import "../Card/Card";
+
 .hand {
   display: flex;
+  justify-content: center;
+  width: 7 * $card-width;
 }
