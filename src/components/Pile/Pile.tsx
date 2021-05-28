@@ -14,16 +14,16 @@ export const Pile = ({ frontCard, backCard, leftCard, rightCard }: PileProps) =>
   return (
     <div className="pile" data-testid="pile" >
       <div className="pileCard" id="backCard">
-        {backCard && <Card card={backCard}/>}
+        {backCard && <Card card={backCard} hidden={false}/>}
       </div>
       <div className="pileCard" id="leftCard">
-        {leftCard && <Card card={leftCard}/>}
+        {leftCard && <Card card={leftCard} hidden={false}/>}
       </div>
       <div className="pileCard" id="rightCard">
-        {rightCard && <Card card={rightCard}/>}
+        {rightCard && <Card card={rightCard} hidden={false}/>}
       </div>
       <div className="pileCard" id="frontCard">
-        {frontCard && <Card card={frontCard}/>}
+        {frontCard && <Card card={frontCard} hidden={false}/>}
       </div>
     </div>
   )
