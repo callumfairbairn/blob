@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Card } from './Card'
-import { Suits } from '../enums/suits';
+import { Suits } from '../../enums/suits';
 
 describe('Card', () => {
   it('renders a number', () => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import './Card.scss'
-import { CardType } from '../types/card'
-import { Suits } from '../enums/suits'
+import { CardType } from '../../types/card'
+import { Suits } from '../../enums/suits'
 
 type CardProps = {
   card: CardType
