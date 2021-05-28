@@ -1,6 +1,7 @@
 @use 'sass:math';
 $base-size: 15vmin;
 $font-size: 4vmin;
+$suit-size-multiplier: 0.5;
 
 .black-card {
   color: black;
@@ -27,7 +28,7 @@ $font-size: 4vmin;
     justify-content: center;
     align-items: center;
     font-size: $font-size;
-    width: $base-size / 2;
+    width: $base-size * $suit-size-multiplier;
     height: math.sqrt(2) / 3 * $base-size;
   }
 

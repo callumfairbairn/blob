@@ -5,13 +5,14 @@ import { Suits } from '../enums/suits'
 
 type CardProps = {
   card: CardType
+  zIndex?: number
 }
 
 
-export const Card = ({ card }: CardProps) => {
+export const Card = ({ card, zIndex }: CardProps) => {
   const className = (card.suit === Suits.Clubs || card.suit === Suits.Spades) ? 'black-card' : 'red-card'
   return (
-    <div className={className} data-testid="card" id="card">
+    <div className={className} data-testid="card" id="card" style={{ zIndex }}>
       <div className="suit">
         {card.suit}
       </div>
