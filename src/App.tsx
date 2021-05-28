@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './App.scss'
 import { Hand } from './components/Hand/Hand'
 import { Suits } from './enums/suits'
 import { Pile } from './components/Pile/Pile'
 import { handTypes } from './enums/handTypes'
 import { AppContextProvider } from './AppContext/AppContext'
+import { CardBackSettingsPicker } from './components/CardBackSettingPicker/CardBackSettingsPicker'
 
 const cards = [
   { value: 2, suit: Suits.Clubs },
@@ -20,6 +21,7 @@ const App = () => {
   return (
     <AppContextProvider>
       <div className="App" data-testid="app">
+        <CardBackSettingsPicker />
         <div className="game">
           <Hand cards={cards} handType={handTypes.Back}/>
           <Hand cards={cards} handType={handTypes.Left}/>

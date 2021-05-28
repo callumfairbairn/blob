@@ -13,13 +13,14 @@ const defaultAppContextValue: AppContextValueType = {
 export const AppContext = createContext(defaultAppContextValue)
 
 type AppContextProviderProps = {
-  children: any
+  children: any,
+  values?: object
 }
 
-export const AppContextProvider = ({ children }: AppContextProviderProps) => {
+export const AppContextProvider = ({ children, values }: AppContextProviderProps) => {
   const [cardBackDiamondNumber, setCardBackDiamondNumber] = useState(7)
 
-  return <AppContext.Provider value={{ cardBackDiamondNumber, setCardBackDiamondNumber }}>
+  return <AppContext.Provider value={{ cardBackDiamondNumber, setCardBackDiamondNumber, ...values }}>
     {children}
   </AppContext.Provider>
 }
