@@ -18,12 +18,16 @@
 
 #leftHand {
   flex-direction: column;
+  justify-content: center;
   height: $card-height * 7 * 0.5;
+  margin-top: $card-height * -0.5;
 }
 
 #rightHand {
   flex-direction: column;
+  justify-content: center;
   height: $card-height * 7 * 0.5;
+  margin-top: $card-height * -0.5;
 }
 
 #frontHand {

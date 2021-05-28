@@ -16,7 +16,7 @@ const cards = [
 
 describe('Hand', () => {
   it('renders a given number of cards', () => {
-    render(<Hand cards={cards} />)
+    render(<Hand cards={cards} handType={handTypes.Back} />)
 
     expect(screen.getAllByTestId('card').length).toEqual(cards.length)
   })
