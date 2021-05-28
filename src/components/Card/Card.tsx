@@ -2,8 +2,7 @@ import React from 'react'
 import './Card.scss'
 import { CardType } from '../../types/card'
 import { Suits } from '../../enums/suits'
-
-const Background = () => <div />
+import { CardBack } from '../CardBack/CardBack'
 
 type CardContentProps = {
   card: CardType
@@ -37,7 +36,7 @@ export const Card = ({ card, zIndex, hidden }: CardProps) => {
   const className = (card.suit === Suits.Clubs || card.suit === Suits.Spades) ? 'blackCard' : 'redCard'
   return (
     <div className={className} data-testid="card" id="card" style={{ zIndex }}>
-      {hidden ? <Background /> : <CardContent card={card} />}
+      {hidden ? <CardBack /> : <CardContent card={card} />}
     </div>
   )
 }

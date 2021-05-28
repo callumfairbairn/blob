@@ -1,0 +1,7 @@
+@import "../Card/Card";
+
+.cardBackCanvas {
+  width: $card-width;
+  height: $card-height;
+  border-radius: $card-width / 12;
+}
