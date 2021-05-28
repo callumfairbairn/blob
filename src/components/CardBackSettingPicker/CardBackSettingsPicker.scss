@@ -2,7 +2,7 @@
 
 $button-bottom: $card-width * 0.2;
 //$background-colour: #36827F;
-$text-colour: #BE9DC4;
+$text-colour: #F4EDED;
 $button-colour: #ACB6C8;
 
 .cardBackSettingsPicker {
@@ -20,7 +20,6 @@ $button-colour: #ACB6C8;
   font-size: $card-width * 0.25;
   font-family: AppleGothic;
   font-weight: bold;
-  border-radius: $card-width / 12;
 
   .diamondsChanger {
     display: flex;
