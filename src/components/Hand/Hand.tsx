@@ -10,11 +10,18 @@ type HandProps = {
 }
 
 export const Hand = ({ cards, handType }: HandProps) => {
+  const getZIndex = (index: number) => {
+    if (handType === handTypes.Front || handType === handTypes.Left) {
+    return cards.length - index
+    }
+    return cards.length + index
+  }
+
   return (
     <div className="hand" data-testid="hand" id={`${handType}Hand`}>
       {cards.map((card, index) =>
-        <div className={`${handType}HandCard`} key={index}>
-          <Card card={card} zIndex={cards.length - index} key={index}/>
+        <div className={`${handType}HandCard`} style={{ zIndex: getZIndex(index) }} key={index}>
+          <Card card={card} zIndex={getZIndex(index)} key={index}/>
         </div>
       )}
     </div>
