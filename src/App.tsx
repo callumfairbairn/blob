@@ -3,9 +3,9 @@ import './App.css'
 import { Card } from './Card/Card'
 import { Suits } from './enums/suits'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
+    <div className="App" data-testid="app">
       <Card card={{ value: 2, suit: Suits.Clubs }} zIndex={4}/>
       <Card card={{ value: 3, suit: Suits.Diamonds }} zIndex={3}/>
       <Card card={{ value: 4, suit: Suits.Hearts }} zIndex={2}/>
