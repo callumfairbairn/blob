@@ -1,4 +1,4 @@
-export const cardBackColours = [
+export const defaultColourSets = [
   [
     '#8A8E91',
     '#855A5C',

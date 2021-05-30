@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useRef } from 'react'
 import './CardBack.scss'
 import { AppContext } from '../../AppContext/AppContext'
-import { cardBackColours } from '../../cardBackColours'
 
 export const CardBack = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const { cardBackDiamondNumber, cardBackColoursIndex } = useContext(AppContext)
-  const [ backgroundColour, diamondColour1, diamondColour2 ] = cardBackColours[cardBackColoursIndex]
+  const { cardBackDiamondNumber, cardBackColoursIndex, colourSets } = useContext(AppContext)
+  const [ backgroundColour, diamondColour1, diamondColour2 ] = colourSets[cardBackColoursIndex]
 
   const fillBackground = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => {
     ctx.fillStyle = backgroundColour;

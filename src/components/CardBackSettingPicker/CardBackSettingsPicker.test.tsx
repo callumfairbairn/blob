@@ -2,7 +2,6 @@ import { CardBackSettingsPicker, diamondLimit } from './CardBackSettingsPicker'
 import { render, screen } from '@testing-library/react'
 import { AppContextProvider } from '../../AppContext/AppContext'
 import userEvent from '@testing-library/user-event'
-import { cardBackColours } from '../../cardBackColours'
 
 const renderComponent = (appProviderValues: object) => {
   render(
@@ -59,10 +58,11 @@ describe('CardBackSettingsPicker', () => {
   })
 
   describe('colour buttons', () => {
+    const colourSets = [['#F2F5EA', '#E75A7C', '#2C363F',]]
     describe('when clicking the up button', () => {
       it('increases the index by one', () => {
         const setCardBackColoursIndex = jest.fn();
-        const appProviderValues = { cardBackColoursIndex: 3, setCardBackColoursIndex }
+        const appProviderValues = { cardBackColoursIndex: 3, setCardBackColoursIndex , colourSets}
         renderComponent(appProviderValues)
 
         userEvent.click(screen.getByTestId('upColourButton'))
@@ -72,7 +72,7 @@ describe('CardBackSettingsPicker', () => {
 
       it('wraps back round to 0 when the index is equal to the length of the cardBackColours array - 1', () => {
         const setCardBackColoursIndex = jest.fn();
-        const appProviderValues = { cardBackColoursIndex: cardBackColours.length - 1, setCardBackColoursIndex }
+        const appProviderValues = { cardBackColoursIndex: colourSets.length - 1, setCardBackColoursIndex, colourSets }
         renderComponent(appProviderValues)
 
         userEvent.click(screen.getByTestId('upColourButton'))
@@ -94,14 +94,89 @@ describe('CardBackSettingsPicker', () => {
 
       it('wraps back round to the length of the cardBackColours array - 1 if index is 0', () => {
         const setCardBackColoursIndex = jest.fn();
-        const appProviderValues = { cardBackColoursIndex: 0, setCardBackColoursIndex }
+        const appProviderValues = { cardBackColoursIndex: 0, setCardBackColoursIndex, colourSets }
         renderComponent(appProviderValues)
 
         userEvent.click(screen.getByTestId('downColourButton'))
 
-        expect(setCardBackColoursIndex).toHaveBeenCalledWith(cardBackColours.length - 1)
+        expect(setCardBackColoursIndex).toHaveBeenCalledWith(colourSets.length - 1)
       })
     })
 
+  })
+
+  describe('colour rotator buttons', () => {
+    describe('when clicking the up button', () => {
+      const colourSets = [
+        [
+          '#F2F5EA',
+          '#E75A7C',
+          '#2C363F',
+        ],
+        [
+          '#8A8E91',
+          '#855A5C',
+          '#66101F',
+        ],
+        [
+          '#AEA4BF',
+          '#E3E4DB',
+          '#CDCDCD',
+        ],
+      ]
+      it('rotates the colours one direction', () => {
+        const setColourSets = jest.fn();
+        const appProviderValues = { colourSets, setColourSets, cardBackColoursIndex: 1 }
+        const expectedColourSets = [
+          [
+            '#F2F5EA',
+            '#E75A7C',
+            '#2C363F',
+          ],
+          [
+            '#66101F',
+            '#8A8E91',
+            '#855A5C',
+          ],
+          [
+            '#AEA4BF',
+            '#E3E4DB',
+            '#CDCDCD',
+          ],
+        ]
+        renderComponent(appProviderValues)
+
+        userEvent.click(screen.getByTestId('upColourRotatorButton'))
+
+        expect(setColourSets).toHaveBeenCalledWith(expectedColourSets)
+      })
+
+      it('rotates the colours in the other direction direction', () => {
+        const setColourSets = jest.fn();
+        const appProviderValues = { colourSets, setColourSets, cardBackColoursIndex: 1 }
+        const expectedColourSets = [
+          [
+            '#F2F5EA',
+            '#E75A7C',
+            '#2C363F',
+          ],
+          [
+            '#855A5C',
+            '#66101F',
+            '#8A8E91',
+          ],
+          [
+            '#AEA4BF',
+            '#E3E4DB',
+            '#CDCDCD',
+          ],
+        ]
+        renderComponent(appProviderValues)
+
+        userEvent.click(screen.getByTestId('downColourRotatorButton'))
+
+        expect(setColourSets).toHaveBeenCalledWith(expectedColourSets)
+      })
+    })
   })
 })

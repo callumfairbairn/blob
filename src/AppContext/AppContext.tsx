@@ -1,10 +1,13 @@
 import React, { createContext, useState } from 'react'
+import { defaultColourSets } from '../defaultColourSets'
 
 type AppContextValueType = {
   cardBackDiamondNumber: number,
   setCardBackDiamondNumber: any,
   cardBackColoursIndex: number,
-  setCardBackColoursIndex: any
+  setCardBackColoursIndex: any,
+  colourSets: string[][],
+  setColourSets: any,
 }
 
 const defaultAppContextValue: AppContextValueType = {
@@ -12,6 +15,8 @@ const defaultAppContextValue: AppContextValueType = {
   setCardBackDiamondNumber: () => {},
   cardBackColoursIndex: 0,
   setCardBackColoursIndex: () => {},
+  colourSets: defaultColourSets,
+  setColourSets: () => {},
 }
 
 export const AppContext = createContext(defaultAppContextValue)
@@ -24,6 +29,7 @@ type AppContextProviderProps = {
 export const AppContextProvider = ({ children, values }: AppContextProviderProps) => {
   const [cardBackDiamondNumber, setCardBackDiamondNumber] = useState(6)
   const [cardBackColoursIndex, setCardBackColoursIndex] = useState(0)
+  const [colourSets, setColourSets] = useState(defaultColourSets)
 
   return <AppContext.Provider value={
     {
@@ -31,6 +37,8 @@ export const AppContextProvider = ({ children, values }: AppContextProviderProps
       setCardBackDiamondNumber,
       cardBackColoursIndex,
       setCardBackColoursIndex,
+      colourSets,
+      setColourSets,
       ...values
     }
   }>

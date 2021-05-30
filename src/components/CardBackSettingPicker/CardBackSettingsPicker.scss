@@ -14,7 +14,7 @@ $small-font-size: $card-width * 0.2;
   align-items: center;
   position: absolute;
   width: $card-height * 2;
-  height: $card-width * 1.5;
+  height: $card-width * 2;
   top: $card-width * 0.2;
   left: $card-width * 0.2;
   font-size: $large-font-size;
@@ -40,14 +40,14 @@ $small-font-size: $card-width * 0.2;
     display: flex;
     flex-direction: column;
 
-    #moreDiamondsButton, #upColourButton {
+    #moreDiamondsButton, #upColourButton, #upColourRotatorButton {
       border-left: $button-bottom * 0.8 solid transparent;
       border-right: $button-bottom * 0.8 solid transparent;
       border-bottom: $button-bottom solid $button-colour;
       margin-bottom: 1px;
     }
 
-    #fewerDiamondsButton, #downColourButton {
+    #fewerDiamondsButton, #downColourButton, #downColourRotatorButton {
       border-left: $button-bottom * 0.8 solid transparent;
       border-right: $button-bottom * 0.8 solid transparent;
       border-top: $button-bottom solid $button-colour;
