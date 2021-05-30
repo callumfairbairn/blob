@@ -1,24 +1,22 @@
 import React, { useContext, useEffect, useRef } from 'react'
 import './CardBack.scss'
 import { AppContext } from '../../AppContext/AppContext'
-
-const backgroundColour = '#8A8E91'
-const diamondColour1 = '#855A5C'
-const diamondColour2 = '#66101F'
-
-const fillBackground = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => {
-  ctx.fillStyle = backgroundColour;
-  ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.lineTo(canvas.width, 0);
-  ctx.lineTo(canvas.width, canvas.height);
-  ctx.lineTo(0, canvas.height);
-  ctx.fill();
-}
+import { cardBackColours } from '../../cardBackColours'
 
 export const CardBack = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const { cardBackDiamondNumber } = useContext(AppContext)
+  const { cardBackDiamondNumber, cardBackColoursIndex } = useContext(AppContext)
+  const { backgroundColour, diamondColour1, diamondColour2 } = cardBackColours[cardBackColoursIndex]
+
+  const fillBackground = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => {
+    ctx.fillStyle = backgroundColour;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(canvas.width, 0);
+    ctx.lineTo(canvas.width, canvas.height);
+    ctx.lineTo(0, canvas.height);
+    ctx.fill();
+  }
 
   const fillDiamond = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, x: number, y: number) => {
     const diamondWidth = canvas.width / cardBackDiamondNumber

@@ -2,12 +2,16 @@ import React, { createContext, useState } from 'react'
 
 type AppContextValueType = {
   cardBackDiamondNumber: number,
-  setCardBackDiamondNumber: any
+  setCardBackDiamondNumber: any,
+  cardBackColoursIndex: number,
+  setCardBackColoursIndex: any
 }
 
 const defaultAppContextValue: AppContextValueType = {
   cardBackDiamondNumber: 6,
-  setCardBackDiamondNumber: () => {}
+  setCardBackDiamondNumber: () => {},
+  cardBackColoursIndex: 0,
+  setCardBackColoursIndex: () => {},
 }
 
 export const AppContext = createContext(defaultAppContextValue)
@@ -18,9 +22,18 @@ type AppContextProviderProps = {
 }
 
 export const AppContextProvider = ({ children, values }: AppContextProviderProps) => {
-  const [cardBackDiamondNumber, setCardBackDiamondNumber] = useState(7)
+  const [cardBackDiamondNumber, setCardBackDiamondNumber] = useState(6)
+  const [cardBackColoursIndex, setCardBackColoursIndex] = useState(0)
 
-  return <AppContext.Provider value={{ cardBackDiamondNumber, setCardBackDiamondNumber, ...values }}>
+  return <AppContext.Provider value={
+    {
+      cardBackDiamondNumber,
+      setCardBackDiamondNumber,
+      cardBackColoursIndex,
+      setCardBackColoursIndex,
+      ...values
+    }
+  }>
     {children}
   </AppContext.Provider>
 }

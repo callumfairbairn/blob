@@ -2,68 +2,106 @@ import { CardBackSettingsPicker, diamondLimit } from './CardBackSettingsPicker'
 import { render, screen } from '@testing-library/react'
 import { AppContextProvider } from '../../AppContext/AppContext'
 import userEvent from '@testing-library/user-event'
+import { cardBackColours } from '../../cardBackColours'
+
+const renderComponent = (appProviderValues: object) => {
+  render(
+    <AppContextProvider values={appProviderValues}>
+      <CardBackSettingsPicker />
+    </AppContextProvider>
+  )
+}
 
 describe('CardBackSettingsPicker', () => {
-  describe('when increasing number of diamonds', () => {
-    it('calls setCardBackDiamondNumber with a number one greater than the current number', () => {
-      const setCardBackDiamondNumber = jest.fn()
-      const appProviderValues = { cardBackDiamondNumber: 6, setCardBackDiamondNumber }
+  describe('diamond buttons', () => {
+    describe('when increasing number of diamonds', () => {
+      it('calls setCardBackDiamondNumber with a number one greater than the current number', () => {
+        const setCardBackDiamondNumber = jest.fn()
+        const appProviderValues = { cardBackDiamondNumber: 6, setCardBackDiamondNumber }
+        renderComponent(appProviderValues)
 
-      render(
-        <AppContextProvider values={appProviderValues}>
-          <CardBackSettingsPicker />
-        </AppContextProvider>
-      )
+        userEvent.click(screen.getByTestId('moreDiamondsButton'))
 
-      userEvent.click(screen.getByTestId('moreDiamondsButton'))
+        expect(setCardBackDiamondNumber).toHaveBeenCalledWith(7)
+      })
 
-      expect(setCardBackDiamondNumber).toHaveBeenCalledWith(7)
+      it('does not increase the number when the limit is hit', () => {
+        const setCardBackDiamondNumber = jest.fn()
+        const appProviderValues = { cardBackDiamondNumber: diamondLimit, setCardBackDiamondNumber }
+        renderComponent(appProviderValues)
+
+        userEvent.click(screen.getByTestId('moreDiamondsButton'))
+
+        expect(setCardBackDiamondNumber).toHaveBeenCalledWith(diamondLimit)
+      })
     })
+    describe('when decreasing number of diamonds', () => {
+      it('calls setCardBackDiamondNumber with a number one less than the current number', () => {
+        const setCardBackDiamondNumber = jest.fn()
+        const appProviderValues = { cardBackDiamondNumber: 6, setCardBackDiamondNumber }
+        renderComponent(appProviderValues)
 
-    it('does not increase the number when the limit is hit', () => {
-      const setCardBackDiamondNumber = jest.fn()
-      const appProviderValues = { cardBackDiamondNumber: diamondLimit, setCardBackDiamondNumber }
+        userEvent.click(screen.getByTestId('fewerDiamondsButton'))
 
-      render(
-        <AppContextProvider values={appProviderValues}>
-          <CardBackSettingsPicker />
-        </AppContextProvider>
-      )
+        expect(setCardBackDiamondNumber).toHaveBeenCalledWith(5)
+      })
 
-      userEvent.click(screen.getByTestId('moreDiamondsButton'))
+      it('does not decrease the number when it is 1', () => {
+        const setCardBackDiamondNumber = jest.fn()
+        const appProviderValues = { cardBackDiamondNumber: 1, setCardBackDiamondNumber }
+        renderComponent(appProviderValues)
 
-      expect(setCardBackDiamondNumber).toHaveBeenCalledWith(diamondLimit)
+        userEvent.click(screen.getByTestId('fewerDiamondsButton'))
+
+        expect(setCardBackDiamondNumber).toHaveBeenCalledWith(1)
+      })
     })
   })
 
-  describe('when decreasing number of diamonds', () => {
-    it('calls setCardBackDiamondNumber with a number one less than the current number', () => {
-      const setCardBackDiamondNumber = jest.fn()
-      const appProviderValues = { cardBackDiamondNumber: 6, setCardBackDiamondNumber }
+  describe('colour buttons', () => {
+    describe('when clicking the up button', () => {
+      it('increases the index by one', () => {
+        const setCardBackColoursIndex = jest.fn();
+        const appProviderValues = { cardBackColoursIndex: 3, setCardBackColoursIndex }
+        renderComponent(appProviderValues)
 
-      render(
-        <AppContextProvider values={appProviderValues}>
-          <CardBackSettingsPicker />
-        </AppContextProvider>
-      )
+        userEvent.click(screen.getByTestId('upColourButton'))
 
-      userEvent.click(screen.getByTestId('fewerDiamondsButton'))
+        expect(setCardBackColoursIndex).toHaveBeenCalledWith(4)
+      })
 
-      expect(setCardBackDiamondNumber).toHaveBeenCalledWith(5)
+      it('wraps back round to 0 when the index is equal to the length of the cardBackColours array - 1', () => {
+        const setCardBackColoursIndex = jest.fn();
+        const appProviderValues = { cardBackColoursIndex: cardBackColours.length - 1, setCardBackColoursIndex }
+        renderComponent(appProviderValues)
+
+        userEvent.click(screen.getByTestId('upColourButton'))
+
+        expect(setCardBackColoursIndex).toHaveBeenCalledWith(0)
+      })
     })
-    it('does not decrease the number when it is 1', () => {
-      const setCardBackDiamondNumber = jest.fn()
-      const appProviderValues = { cardBackDiamondNumber: 1, setCardBackDiamondNumber }
 
-      render(
-        <AppContextProvider values={appProviderValues}>
-          <CardBackSettingsPicker />
-        </AppContextProvider>
-      )
+    describe('when clicking the down button', () => {
+      it('decreases the index by one', () => {
+        const setCardBackColoursIndex = jest.fn();
+        const appProviderValues = { cardBackColoursIndex: 3, setCardBackColoursIndex }
+        renderComponent(appProviderValues)
 
-      userEvent.click(screen.getByTestId('fewerDiamondsButton'))
+        userEvent.click(screen.getByTestId('downColourButton'))
 
-      expect(setCardBackDiamondNumber).toHaveBeenCalledWith(1)
+        expect(setCardBackColoursIndex).toHaveBeenCalledWith(2)
+      })
+
+      it('wraps back round to the length of the cardBackColours array - 1 if index is 0', () => {
+        const setCardBackColoursIndex = jest.fn();
+        const appProviderValues = { cardBackColoursIndex: 0, setCardBackColoursIndex }
+        renderComponent(appProviderValues)
+
+        userEvent.click(screen.getByTestId('downColourButton'))
+
+        expect(setCardBackColoursIndex).toHaveBeenCalledWith(cardBackColours.length - 1)
+      })
     })
+
   })
 })

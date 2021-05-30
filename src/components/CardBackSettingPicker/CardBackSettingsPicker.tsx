@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../../AppContext/AppContext'
-import { Dropdown, DropdownButton } from 'react-bootstrap';
 import './CardBackSettingsPicker.scss'
+import { cardBackColours } from '../../cardBackColours'
 
 export const diamondLimit = 35;
 
 export const CardBackSettingsPicker = () => {
-  const { cardBackDiamondNumber, setCardBackDiamondNumber } = useContext(AppContext)
+  const { cardBackDiamondNumber, setCardBackDiamondNumber, cardBackColoursIndex, setCardBackColoursIndex } = useContext(AppContext)
 
   return (
     <div className="cardBackSettingsPicker">
@@ -42,14 +42,22 @@ export const CardBackSettingsPicker = () => {
           <div
             className="colourButton"
             id="upColourButton"
-            onClick={() => {}}
-            data-testid="moreDiamondsButton"
+            onClick={
+              () => setCardBackColoursIndex(
+                cardBackColoursIndex === cardBackColours.length - 1 ? 0 : cardBackColoursIndex + 1
+              )
+            }
+            data-testid="upColourButton"
           />
           <div
             className="colourButton"
             id="downColourButton"
-            onClick={() => {}}
-            data-testid="fewerDiamondsButton"
+            onClick={
+              () => setCardBackColoursIndex(
+                cardBackColoursIndex === 0 ? cardBackColours.length - 1 : cardBackColoursIndex - 1
+              )
+            }
+            data-testid="downColourButton"
           />
         </div>
       </div>
