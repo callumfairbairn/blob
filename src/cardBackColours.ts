@@ -10,9 +10,9 @@ export const cardBackColours = [
     '#2C363F',
   ],
   [
+    '#AEA4BF',
     '#E3E4DB',
     '#CDCDCD',
-    '#AEA4BF',
   ],
   [
     '#628395',
@@ -23,5 +23,15 @@ export const cardBackColours = [
     '#585563',
     '#73937E',
     '#CEB992',
+  ],
+  [
+    '#1F2041',
+    '#4B3F72',
+    '#FFC857',
+  ],
+  [
+    '#052F5F',
+    '#005377',
+    '#06A77D',
   ],
 ]
