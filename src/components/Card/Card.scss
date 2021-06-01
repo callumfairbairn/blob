@@ -23,6 +23,12 @@ $suit-size-multiplier: 0.5;
   align-items: center;
   flex-wrap: wrap;
   font-family: Cochin;
+  // Disable text highlighting for all browsers
+  user-select: none; /* supported by Chrome and Opera */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
 
   .suit {
     display: flex;
