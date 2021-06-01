@@ -12,6 +12,7 @@ export const CardBackSettingsToggle = ({ showSettings, setShowSettings }: CardBa
       className="cardBackSettingsToggle"
       data-testid="cardBackSettingsToggle"
       onClick={() => {setShowSettings(!showSettings)}}
+      tabIndex={1}
     >
       {showSettings ? '-' : '+'}
     </div>

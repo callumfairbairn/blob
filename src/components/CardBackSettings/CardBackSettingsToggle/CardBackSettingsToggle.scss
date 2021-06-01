@@ -16,4 +16,15 @@
   vertical-align: baseline;
   align-items: center;
   justify-content: center;
+
+  // Disable text highlighting for all browsers
+  user-select: none; /* supported by Chrome and Opera */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+.cardBackSettingsToggle:active {
+  color: $button-active-colour;
 }

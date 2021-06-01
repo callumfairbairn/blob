@@ -2,6 +2,7 @@
 
 $text-colour: #F4EDED;
 $button-colour: #ACB6C8;
+$button-active-colour: rgba(172, 182, 200, 0.24);
 $button-bottom: $card-width * 0.2;
 $large-font-size: $card-width * 0.25;
 $small-font-size: $card-width * 0.2;
@@ -45,14 +46,21 @@ $small-font-size: $card-width * 0.2;
     display: flex;
     flex-direction: column;
 
-    #moreDiamondsButton, #upColourButton, #upColourRotatorButton {
+    .upSettingsButton:active {
+      border-bottom: $button-bottom solid $button-active-colour;
+    }
+    .downSettingsButton:active {
+      border-top: $button-bottom solid $button-active-colour;
+    }
+
+    .upSettingsButton {
       border-left: $button-bottom * 0.8 solid transparent;
       border-right: $button-bottom * 0.8 solid transparent;
       border-bottom: $button-bottom solid $button-colour;
       margin-bottom: 1px;
     }
 
-    #fewerDiamondsButton, #downColourButton, #downColourRotatorButton {
+    .downSettingsButton {
       border-left: $button-bottom * 0.8 solid transparent;
       border-right: $button-bottom * 0.8 solid transparent;
       border-top: $button-bottom solid $button-colour;

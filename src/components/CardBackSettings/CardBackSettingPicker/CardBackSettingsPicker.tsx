@@ -21,7 +21,7 @@ export const CardBackSettingsPicker = ({ showSettings }: CardBackSettingsPickerP
         Number of diamonds
         <div className="buttonContainer">
           <div
-            className="diamondsButton"
+            className="upSettingsButton"
             id="moreDiamondsButton"
             onClick={
               () => setCardBackDiamondNumber(
@@ -29,9 +29,10 @@ export const CardBackSettingsPicker = ({ showSettings }: CardBackSettingsPickerP
               )
             }
             data-testid="moreDiamondsButton"
+            tabIndex={2}
           />
           <div
-            className="diamondsButton"
+            className="downSettingsButton"
             id="fewerDiamondsButton"
             onClick={
               () => setCardBackDiamondNumber(
@@ -39,6 +40,7 @@ export const CardBackSettingsPicker = ({ showSettings }: CardBackSettingsPickerP
               )
             }
             data-testid="fewerDiamondsButton"
+            tabIndex={3}
           />
         </div>
       </div>
@@ -46,7 +48,7 @@ export const CardBackSettingsPicker = ({ showSettings }: CardBackSettingsPickerP
         Colour
         <div className="buttonContainer">
           <div
-            className="colourButton"
+            className="upSettingsButton"
             id="upColourButton"
             onClick={
               () => setCardBackColoursIndex(
@@ -54,9 +56,10 @@ export const CardBackSettingsPicker = ({ showSettings }: CardBackSettingsPickerP
               )
             }
             data-testid="upColourButton"
+            tabIndex={4}
           />
           <div
-            className="colourButton"
+            className="downSettingsButton"
             id="downColourButton"
             onClick={
               () => setCardBackColoursIndex(
@@ -64,6 +67,7 @@ export const CardBackSettingsPicker = ({ showSettings }: CardBackSettingsPickerP
               )
             }
             data-testid="downColourButton"
+            tabIndex={5}
           />
         </div>
       </div>
@@ -71,7 +75,7 @@ export const CardBackSettingsPicker = ({ showSettings }: CardBackSettingsPickerP
         Rotate colours
         <div className="buttonContainer">
           <div
-            className="colourButton"
+            className="upSettingsButton"
             id="upColourRotatorButton"
             onClick={
               () => setColourSets(
@@ -79,9 +83,10 @@ export const CardBackSettingsPicker = ({ showSettings }: CardBackSettingsPickerP
               )
             }
             data-testid="upColourRotatorButton"
+            tabIndex={6}
           />
           <div
-            className="colourButton"
+            className="downSettingsButton"
             id="downColourRotatorButton"
             onClick={
               () => setColourSets(
@@ -89,6 +94,7 @@ export const CardBackSettingsPicker = ({ showSettings }: CardBackSettingsPickerP
               )
             }
             data-testid="downColourRotatorButton"
+            tabIndex={7}
           />
         </div>
       </div>
