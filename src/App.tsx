@@ -5,7 +5,7 @@ import { Suits } from './enums/suits'
 import { Pile } from './components/Pile/Pile'
 import { handTypes } from './enums/handTypes'
 import { AppContextProvider } from './AppContext/AppContext'
-import { CardBackSettingsPicker } from './components/CardBackSettingPicker/CardBackSettingsPicker'
+import { CardBackSettings } from './components/CardBackSettings/CardBackSettings'
 
 const cards = [
   { value: 2, suit: Suits.Clubs },
@@ -21,7 +21,7 @@ const App = () => {
   return (
     <AppContextProvider>
       <div className="App" data-testid="app">
-        <CardBackSettingsPicker />
+        <CardBackSettings />
         <div className="game">
           <Hand cards={cards} handType={handTypes.Back}/>
           <Hand cards={cards} handType={handTypes.Left}/>

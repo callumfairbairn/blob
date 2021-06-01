@@ -1,10 +1,14 @@
-@import "../Card/Card";
+@import "src/components/Card/Card";
 
 $text-colour: #F4EDED;
 $button-colour: #ACB6C8;
 $button-bottom: $card-width * 0.2;
 $large-font-size: $card-width * 0.25;
 $small-font-size: $card-width * 0.2;
+
+.hidden {
+  display: none;
+}
 
 .cardBackSettingsPicker {
   color: $text-colour;
@@ -20,6 +24,7 @@ $small-font-size: $card-width * 0.2;
   font-size: $large-font-size;
   font-family: AppleGothic;
   font-weight: bold;
+  z-index: 98;
 
   .colourChanger {
     display: flex;

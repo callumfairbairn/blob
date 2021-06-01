@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { AppContext } from '../../AppContext/AppContext'
+import { AppContext } from '../../../AppContext/AppContext'
 import './CardBackSettingsPicker.scss'
 
 export const diamondLimit = 35;
@@ -7,11 +7,15 @@ export const diamondLimit = 35;
 const rotateColourSetUp = (colourSet: string[]) => [colourSet[2], colourSet[0], colourSet[1]]
 const rotateColourSetDown = (colourSet: string[]) => [colourSet[1], colourSet[2], colourSet[0]]
 
-export const CardBackSettingsPicker = () => {
+type CardBackSettingsPickerProps = {
+  showSettings: boolean,
+}
+
+export const CardBackSettingsPicker = ({ showSettings }: CardBackSettingsPickerProps) => {
   const { cardBackDiamondNumber, setCardBackDiamondNumber, cardBackColoursIndex, setCardBackColoursIndex, colourSets, setColourSets } = useContext(AppContext)
 
   return (
-    <div className="cardBackSettingsPicker">
+    <div className={`${showSettings ? 'cardBackSettingsPicker' : 'hidden'}`}>
       Card back settings
       <div className="diamondsChanger">
         Number of diamonds

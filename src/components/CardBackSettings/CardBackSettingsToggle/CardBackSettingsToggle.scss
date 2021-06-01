@@ -1,0 +1,19 @@
+@import "../CardBackSettingPicker/CardBackSettingsPicker";
+@import "src/components/Card/Card";
+
+.cardBackSettingsToggle {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: $button-colour;
+  font-size: $card-width * 0.5;
+  height: $card-width * 0.5;
+  width: $card-width * 0.5;
+  z-index: 99;
+  text-align: left;
+  vertical-align: baseline;
+  align-items: center;
+  justify-content: center;
+}

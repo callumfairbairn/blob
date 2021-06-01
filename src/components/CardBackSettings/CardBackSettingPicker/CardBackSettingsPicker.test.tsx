@@ -1,12 +1,12 @@
 import { CardBackSettingsPicker, diamondLimit } from './CardBackSettingsPicker'
 import { render, screen } from '@testing-library/react'
-import { AppContextProvider } from '../../AppContext/AppContext'
+import { AppContextProvider } from '../../../AppContext/AppContext'
 import userEvent from '@testing-library/user-event'
 
 const renderComponent = (appProviderValues: object) => {
   render(
     <AppContextProvider values={appProviderValues}>
-      <CardBackSettingsPicker />
+      <CardBackSettingsPicker showSettings={true} />
     </AppContextProvider>
   )
 }
