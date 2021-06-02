@@ -48,7 +48,7 @@ const handleResize = (selfRectangle: React.MutableRefObject<DOMRect | undefined>
   pileRectangle.current = document.getElementById('pile')?.getBoundingClientRect()
 }
 
-const getNewPosition = (isCardInPile: boolean, selfRectangle: DOMRect | undefined, pileRectangle: DOMRect | undefined) => {
+const getAnimation = (isCardInPile: boolean, selfRectangle: DOMRect | undefined, pileRectangle: DOMRect | undefined) => {
   if (isCardInPile && selfRectangle && pileRectangle) {
     const horizontalRestraint = pileRectangle.x - selfRectangle.x
     const verticalRestraint = pileRectangle.y - selfRectangle.y
@@ -60,20 +60,20 @@ const getNewPosition = (isCardInPile: boolean, selfRectangle: DOMRect | undefine
 export const Card = ({ card, zIndex, hidden, movable = false, uuid }: CardProps) => {
   const [isCardInPile, setIsCardInPile] = useState(false)
   const className = (card.suit === Suits.Clubs || card.suit === Suits.Spades) ? 'blackCard' : 'redCard'
-  const selfRectangle = useRef<DOMRect | undefined>(undefined);
-  const pileRectangle = useRef<DOMRect | undefined>(undefined);
+  const selfRectangleRef = useRef<DOMRect | undefined>(undefined);
+  const pileRectangleRef = useRef<DOMRect | undefined>(undefined);
 
   useEffect(() => {
-    window.addEventListener('resize', handleResize(selfRectangle, pileRectangle, uuid))
+    window.addEventListener('resize', handleResize(selfRectangleRef, pileRectangleRef, uuid))
 
     return () => {
-      window.removeEventListener('resize', handleResize(selfRectangle, pileRectangle, uuid))
+      window.removeEventListener('resize', handleResize(selfRectangleRef, pileRectangleRef, uuid))
     }
   },[uuid])
 
   useEffect(() => {
-    selfRectangle.current = document.getElementById(uuid)?.getBoundingClientRect()
-    pileRectangle.current = document.getElementById('pile')?.getBoundingClientRect()
+    selfRectangleRef.current = document.getElementById(uuid)?.getBoundingClientRect()
+    pileRectangleRef.current = document.getElementById('pile')?.getBoundingClientRect()
   }, [uuid])
   return (
     <motion.div
@@ -86,10 +86,10 @@ export const Card = ({ card, zIndex, hidden, movable = false, uuid }: CardProps)
       dragElastic={0.85}
       dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
       transition={{ type: 'spring', stiffness: 300, damping: 30, mass: 1.5 }}
-      animate={getNewPosition(isCardInPile, selfRectangle.current, pileRectangle.current)}
+      animate={getAnimation(isCardInPile, selfRectangleRef.current, pileRectangleRef.current)}
       onDragEnd={
         (event: PointerEvent) => {
-          setIsCardInPile(isPositionInsidePile(event.x, event.y, pileRectangle.current))
+          setIsCardInPile(isPositionInsidePile(event.x, event.y, pileRectangleRef.current))
         }
       }
       layout="position"
