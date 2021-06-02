@@ -24,7 +24,9 @@ export const Pile = ({ frontCard, backCard, leftCard, rightCard }: PileProps) =>
         {rightCard && <Card card={rightCard} hidden={false} uuid={getUUID()} />}
       </div>
       <div className="pileCard" id="frontCard">
-        {frontCard && <Card card={frontCard} hidden={false} uuid={getUUID()} />}
+        <div id="frontCardSpace">
+          {frontCard && <Card card={frontCard} hidden={false} uuid={getUUID()} />}
+        </div>
       </div>
     </div>
   )
