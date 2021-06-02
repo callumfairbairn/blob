@@ -3,35 +3,36 @@ import { CardType } from '../../types/card'
 import { Card } from '../Card/Card'
 import './Pile.scss'
 import { getUUID } from '../../functions/getUUID'
+import { handTypes } from '../../enums/handTypes'
 
 type PileProps = {
-  frontCard?: CardType
-  backCard?: CardType
-  leftCard?: CardType
-  rightCard?: CardType
+  [handTypes.Front]?: CardType,
+  [handTypes.Back]?: CardType,
+  [handTypes.Left]?: CardType,
+  [handTypes.Right]?: CardType,
 }
 
-export const Pile = ({ frontCard, backCard, leftCard, rightCard }: PileProps) => {
+export const Pile = ({ front, back, left, right }: PileProps) => {
   return (
     <div className="pile" data-testid="pile" id="pile">
       <div className="pileCard" id="backCard">
         <div id="backCardSpace">
-          {backCard && <Card card={backCard} hidden={false} uuid={getUUID()} />}
+          {back && <Card card={back} hidden={false} uuid={getUUID()} />}
         </div>
       </div>
       <div className="pileCard" id="leftCard">
         <div id="leftCardSpace">
-          {leftCard && <Card card={leftCard} hidden={false} uuid={getUUID()} />}
+          {left && <Card card={left} hidden={false} uuid={getUUID()} />}
         </div>
       </div>
       <div className="pileCard" id="rightCard">
         <div id="rightCardSpace">
-          {rightCard && <Card card={rightCard} hidden={false} uuid={getUUID()} />}
+          {right && <Card card={right} hidden={false} uuid={getUUID()} />}
         </div>
       </div>
       <div className="pileCard" id="frontCard">
         <div id="frontCardSpace">
-          {frontCard && <Card card={frontCard} hidden={false} uuid={getUUID()} />}
+          {front && <Card card={front} hidden={false} uuid={getUUID()} />}
         </div>
       </div>
     </div>

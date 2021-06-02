@@ -1,8 +1,9 @@
 import { Hand } from '../Hand/Hand'
 import { handTypes } from '../../enums/handTypes'
 import { Pile } from '../Pile/Pile'
-import React from 'react'
+import React, { useContext } from 'react'
 import { Suits } from '../../enums/suits'
+import { AppContext } from '../../AppContext/AppContext'
 
 const cards = [
   { value: 2, suit: Suits.Clubs },
@@ -15,11 +16,13 @@ const cards = [
 ]
 
 export const Game = () => {
+  const { pileCards } = useContext(AppContext)
+
   return (
     <div className="game">
       <Hand cards={cards} handType={handTypes.Back}/>
       <Hand cards={cards} handType={handTypes.Left}/>
-      <Pile backCard={cards[0]} leftCard={cards[0]} rightCard={cards[0]}/>
+      <Pile {...pileCards}/>
       <Hand cards={cards} handType={handTypes.Right}/>
       <Hand cards={cards} handType={handTypes.Front}/>
     </div>

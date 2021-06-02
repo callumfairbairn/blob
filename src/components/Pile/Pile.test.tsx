@@ -5,38 +5,38 @@ import { render, screen } from '@testing-library/react'
 
 describe('Pile', () => {
   it('renders a front card', () => {
-    const frontCard = { value: 2, suit: Suits.Clubs }
+    const front = { value: 2, suit: Suits.Clubs }
 
-    render(<Pile frontCard={frontCard} />)
+    render(<Pile front={front} />)
 
-    expect(screen.getByText(frontCard.value)).toBeInTheDocument()
-    expect(screen.getAllByText(frontCard.suit).length).toEqual(4)
+    expect(screen.getByText(front.value)).toBeInTheDocument()
+    expect(screen.getAllByText(front.suit).length).toEqual(4)
   })
 
   it('renders a back card', () => {
-    const backCard = { value: 2, suit: Suits.Clubs }
+    const back = { value: 2, suit: Suits.Clubs }
 
-    render(<Pile backCard={backCard} />)
+    render(<Pile back={back} />)
 
-    expect(screen.getByText(backCard.value)).toBeInTheDocument()
-    expect(screen.getAllByText(backCard.suit).length).toEqual(4)
+    expect(screen.getByText(back.value)).toBeInTheDocument()
+    expect(screen.getAllByText(back.suit).length).toEqual(4)
   })
 
   it('renders a left card', () => {
-    const leftCard = { value: 2, suit: Suits.Clubs }
+    const left = { value: 2, suit: Suits.Clubs }
 
-    render(<Pile leftCard={leftCard} />)
+    render(<Pile left={left} />)
 
-    expect(screen.getByText(leftCard.value)).toBeInTheDocument()
-    expect(screen.getAllByText(leftCard.suit).length).toEqual(4)
+    expect(screen.getByText(left.value)).toBeInTheDocument()
+    expect(screen.getAllByText(left.suit).length).toEqual(4)
   })
 
   it('renders a right card', () => {
-    const rightCard = { value: 2, suit: Suits.Clubs }
+    const right = { value: 2, suit: Suits.Clubs }
 
-    render(<Pile rightCard={rightCard} />)
+    render(<Pile right={right} />)
 
-    expect(screen.getByText(rightCard.value)).toBeInTheDocument()
-    expect(screen.getAllByText(rightCard.suit).length).toEqual(4)
+    expect(screen.getByText(right.value)).toBeInTheDocument()
+    expect(screen.getAllByText(right.suit).length).toEqual(4)
   })
 })

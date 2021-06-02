@@ -1,5 +1,14 @@
 import React, { createContext, useState } from 'react'
 import { defaultColourSets } from '../defaultColourSets'
+import { handTypes } from '../enums/handTypes'
+import { CardType } from '../types/card'
+
+export type PileCardsType = {
+  [handTypes.Front]?: CardType,
+  [handTypes.Back]?: CardType,
+  [handTypes.Left]?: CardType,
+  [handTypes.Right]?: CardType,
+}
 
 type AppContextValueType = {
   cardBackDiamondNumber: number,
@@ -8,6 +17,8 @@ type AppContextValueType = {
   setCardBackColoursIndex: any,
   colourSets: string[][],
   setColourSets: any,
+  pileCards: PileCardsType
+  setPileCards: any,
 }
 
 const defaultAppContextValue: AppContextValueType = {
@@ -17,6 +28,8 @@ const defaultAppContextValue: AppContextValueType = {
   setCardBackColoursIndex: () => {},
   colourSets: defaultColourSets,
   setColourSets: () => {},
+  pileCards: {},
+  setPileCards: () => {}
 }
 
 export const AppContext = createContext(defaultAppContextValue)
@@ -30,6 +43,7 @@ export const AppContextProvider = ({ children, values }: AppContextProviderProps
   const [cardBackDiamondNumber, setCardBackDiamondNumber] = useState(6)
   const [cardBackColoursIndex, setCardBackColoursIndex] = useState(0)
   const [colourSets, setColourSets] = useState(defaultColourSets)
+  const [pileCards, setPileCards] = useState({})
 
   return <AppContext.Provider value={
     {
@@ -39,6 +53,8 @@ export const AppContextProvider = ({ children, values }: AppContextProviderProps
       setCardBackColoursIndex,
       colourSets,
       setColourSets,
+      pileCards,
+      setPileCards,
       ...values
     }
   }>

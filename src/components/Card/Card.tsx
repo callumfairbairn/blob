@@ -1,9 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import './Card.scss'
 import { CardType } from '../../types/card'
 import { Suits } from '../../enums/suits'
 import { CardBack } from '../CardBack/CardBack'
 import { motion } from 'framer-motion'
+import { handTypes } from '../../enums/handTypes'
+import { AppContext } from '../../AppContext/AppContext'
 
 type CardContentProps = {
   card: CardType
@@ -33,6 +35,7 @@ type CardProps = {
   hidden: boolean
   movable?: boolean
   uuid: string
+  handType?: handTypes
 }
 
 const isPositionInsidePile = (mouseX: number, mouseY: number, pileRectangle: DOMRect | undefined): boolean => {
@@ -62,8 +65,9 @@ const getAnimation = (isCardInPile: boolean, selfRectangle: DOMRect | undefined,
   return { x: 0, y: 0 }
 }
 
-export const Card = ({ card, zIndex, hidden, movable = false, uuid }: CardProps) => {
+export const Card = ({ card, zIndex, hidden, movable = false, uuid, handType}: CardProps) => {
   const [isCardInPile, setIsCardInPile] = useState(false)
+  const { pileCards, setPileCards } = useContext(AppContext)
   const className = (card.suit === Suits.Clubs || card.suit === Suits.Spades) ? 'blackCard' : 'redCard'
   const selfRectangleRef = useRef<DOMRect | undefined>(undefined)
   const pileRectangleRef = useRef<DOMRect | undefined>(undefined)
@@ -106,7 +110,13 @@ export const Card = ({ card, zIndex, hidden, movable = false, uuid }: CardProps)
         }
       }
       layout="position"
-      // onAnimationComplete={() => { setCurrentCard(card) }}
+      onAnimationComplete={(definition: any) => {
+        if (definition.x !== 0 && definition.y !== 0 && handType && pileCards) {
+          const pileCardsClone = { ...pileCards }
+          pileCardsClone[handType] = card
+          setPileCards(pileCardsClone)
+        }
+      }}
     >
       {hidden ? <CardBack /> : <CardContent card={card} />}
     </motion.div>
