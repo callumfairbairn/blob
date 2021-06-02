@@ -39,13 +39,14 @@ type CardProps = {
   card: CardType
   zIndex?: number
   hidden: boolean
+  movable?: boolean
 }
 
 const handleResize = (pileRectangle: React.MutableRefObject<DOMRect | undefined>) => () => {
   pileRectangle.current = document.getElementById('pile')?.getBoundingClientRect()
 }
 
-export const Card = ({ card, zIndex, hidden }: CardProps) => {
+export const Card = ({ card, zIndex, hidden, movable = false }: CardProps) => {
   const className = (card.suit === Suits.Clubs || card.suit === Suits.Spades) ? 'blackCard' : 'redCard'
   const pileRectangle = useRef<DOMRect | undefined>(undefined);
 
@@ -66,7 +67,7 @@ export const Card = ({ card, zIndex, hidden }: CardProps) => {
       data-testid="card"
       id="card"
       style={{ zIndex }}
-      drag
+      drag={movable}
       dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
       dragElastic={0.85}
       dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
