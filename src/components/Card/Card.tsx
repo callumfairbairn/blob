@@ -41,12 +41,25 @@ type CardProps = {
   hidden: boolean
 }
 
+const handleResize = (pileRectangle: React.MutableRefObject<DOMRect | undefined>) => () => {
+  pileRectangle.current = document.getElementById('pile')?.getBoundingClientRect()
+}
+
 export const Card = ({ card, zIndex, hidden }: CardProps) => {
   const className = (card.suit === Suits.Clubs || card.suit === Suits.Spades) ? 'blackCard' : 'redCard'
   const pileRectangle = useRef<DOMRect | undefined>(undefined);
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize(pileRectangle))
+
+    return () => {
+      window.removeEventListener('resize', handleResize(pileRectangle))
+    }
+  },[])
+
   useEffect(() => {
     pileRectangle.current = document.getElementById('pile')?.getBoundingClientRect()
-  })
+  }, [])
   return (
     <motion.div
       className={className}
