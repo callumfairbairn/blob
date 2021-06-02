@@ -48,13 +48,13 @@ const handleResize = (selfRectangle: React.MutableRefObject<DOMRect | undefined>
   pileRectangle.current = document.getElementById('pile')?.getBoundingClientRect()
 }
 
-const getDragRestraints = (isCardInPile: boolean, selfRectangle: DOMRect | undefined, pileRectangle: DOMRect | undefined) => {
+const getNewPosition = (isCardInPile: boolean, selfRectangle: DOMRect | undefined, pileRectangle: DOMRect | undefined) => {
   if (isCardInPile && selfRectangle && pileRectangle) {
     const horizontalRestraint = pileRectangle.x - selfRectangle.x
     const verticalRestraint = pileRectangle.y - selfRectangle.y
-    return { left: horizontalRestraint, right: horizontalRestraint, top: verticalRestraint, bottom: verticalRestraint }
+    return { x: horizontalRestraint, y: verticalRestraint }
   }
-  return { left: 0, right: 0, top: 0, bottom: 0 }
+  return { x: 0, y: 0 }
 }
 
 export const Card = ({ card, zIndex, hidden, movable = false, uuid }: CardProps) => {
@@ -82,14 +82,17 @@ export const Card = ({ card, zIndex, hidden, movable = false, uuid }: CardProps)
       id={uuid}
       style={{ zIndex }}
       drag={movable}
-      dragConstraints={getDragRestraints(isCardInPile, selfRectangle.current, pileRectangle.current)}
+      dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
       dragElastic={0.85}
       dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30, mass: 1.5 }}
+      animate={getNewPosition(isCardInPile, selfRectangle.current, pileRectangle.current)}
       onDragEnd={
         (event: PointerEvent) => {
           setIsCardInPile(isPositionInsidePile(event.x, event.y, pileRectangle.current))
         }
       }
+      layout="position"
     >
       {hidden ? <CardBack /> : <CardContent card={card} />}
     </motion.div>
