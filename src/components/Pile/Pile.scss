@@ -13,7 +13,7 @@ $pile-width: 2.5; //in units of card-width
     height: $card-height * 0.5;
   }
 
-  #frontCardSpace {
+  #frontCardSpace, #backCardSpace, #leftCardSpace, #rightCardSpace {
     width: $card-width;
     height: $card-height;
   }
