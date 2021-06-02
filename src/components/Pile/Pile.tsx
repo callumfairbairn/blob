@@ -12,7 +12,7 @@ type PileProps = {
 
 export const Pile = ({ frontCard, backCard, leftCard, rightCard }: PileProps) => {
   return (
-    <div className="pile" data-testid="pile" >
+    <div className="pile" data-testid="pile" id="pile">
       <div className="pileCard" id="backCard">
         {backCard && <Card card={backCard} hidden={false}/>}
       </div>

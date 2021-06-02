@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import './Card.scss'
 import { CardType } from '../../types/card'
 import { Suits } from '../../enums/suits'
 import { CardBack } from '../CardBack/CardBack'
 import { motion } from 'framer-motion'
+
+const isPositionInsidePile = (mouseX: number, mouseY: number, pileRectangle: DOMRect | undefined): boolean => {
+  if (pileRectangle) {
+    const { x, y, width, height } = pileRectangle
+    return (mouseX >= x && mouseX <= x + width) && (mouseY >= y && mouseY <= y + height)
+  }
+  return false
+}
 
 type CardContentProps = {
   card: CardType
@@ -35,6 +43,10 @@ type CardProps = {
 
 export const Card = ({ card, zIndex, hidden }: CardProps) => {
   const className = (card.suit === Suits.Clubs || card.suit === Suits.Spades) ? 'blackCard' : 'redCard'
+  const pileRectangle = useRef<DOMRect | undefined>(undefined);
+  useEffect(() => {
+    pileRectangle.current = document.getElementById('pile')?.getBoundingClientRect()
+  })
   return (
     <motion.div
       className={className}
@@ -44,7 +56,12 @@ export const Card = ({ card, zIndex, hidden }: CardProps) => {
       drag
       dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
       dragElastic={0.85}
-      dragTransition={{ bounceStiffness: 300, bounceDamping: 15 }}
+      dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
+      onDragEnd={
+        (event: PointerEvent) => {
+          console.log(isPositionInsidePile(event.x, event.y, pileRectangle.current))
+        }
+      }
     >
       {hidden ? <CardBack /> : <CardContent card={card} />}
     </motion.div>
