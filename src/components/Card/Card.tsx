@@ -98,7 +98,7 @@ export const Card = ({ card, zIndex, hidden, movable = false, uuid }: CardProps)
       dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
       dragElastic={0.85}
       dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 30, mass: 1.5 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 40, mass: 1.5 }}
       animate={getAnimation(isCardInPile, selfRectangleRef.current, frontCardSpaceRectangleRef.current)}
       onDragEnd={
         (event: PointerEvent) => {
@@ -106,6 +106,7 @@ export const Card = ({ card, zIndex, hidden, movable = false, uuid }: CardProps)
         }
       }
       layout="position"
+      // onAnimationComplete={() => { setCurrentCard(card) }}
     >
       {hidden ? <CardBack /> : <CardContent card={card} />}
     </motion.div>

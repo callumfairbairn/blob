@@ -25,7 +25,7 @@ const App = () => {
         <div className="game">
           <Hand cards={cards} handType={handTypes.Back}/>
           <Hand cards={cards} handType={handTypes.Left}/>
-          <Pile frontCard={cards[0]} backCard={cards[0]} leftCard={cards[0]} rightCard={cards[0]}/>
+          <Pile backCard={cards[0]} leftCard={cards[0]} rightCard={cards[0]}/>
           <Hand cards={cards} handType={handTypes.Right}/>
           <Hand cards={cards} handType={handTypes.Front}/>
         </div>

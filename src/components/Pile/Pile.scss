@@ -13,6 +13,11 @@ $pile-width: 2.5; //in units of card-width
     height: $card-height * 0.5;
   }
 
+  #frontCardSpace {
+    width: $card-width;
+    height: $card-height;
+  }
+
   #backCard {
     display: flex;
     justify-content: center;
