@@ -3,12 +3,12 @@ import { CardType } from '../../types/card'
 import { Card } from '../Card/Card'
 import './Hand.scss'
 import { handTypes } from '../../enums/handTypes'
-import { getUUID } from '../../functions/getUUID'
 
 type HandProps = {
   cards: CardType[]
-  handType: handTypes
+  handType: handTypes,
 }
+
 
 export const Hand = ({ cards, handType }: HandProps) => {
   const getZIndex = (index: number) => {
@@ -17,18 +17,19 @@ export const Hand = ({ cards, handType }: HandProps) => {
     }
     return cards.length + index
   }
+  const getUID = (card: CardType) => `${card.suit}-${card.value}-${handType}`
 
   return (
     <div className="hand" data-testid="hand" id={`${handType}Hand`}>
       {cards.map((card, index) =>
-        <div className={`${handType}HandCard`} style={{ zIndex: getZIndex(index) }} key={index}>
+        <div className={`${handType}HandCard`} style={{ zIndex: getZIndex(index) }} key={getUID(card)}>
           <Card
             card={card}
             zIndex={getZIndex(index)}
-            key={index}
+            key={getUID(card)}
             hidden={handType !== handTypes.Front}
             movable={handType === handTypes.Front}
-            uuid={getUUID()}
+            uid={getUID(card)}
             handType={handType}
           />
         </div>

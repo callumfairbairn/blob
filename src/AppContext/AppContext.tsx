@@ -2,6 +2,7 @@ import React, { createContext, useState } from 'react'
 import { defaultColourSets } from '../defaultColourSets'
 import { handTypes } from '../enums/handTypes'
 import { CardType } from '../types/card'
+import { Suits } from '../enums/suits'
 
 export type PileCardsType = {
   [handTypes.Front]?: CardType,
@@ -10,16 +11,35 @@ export type PileCardsType = {
   [handTypes.Right]?: CardType,
 }
 
-type AppContextValueType = {
-  cardBackDiamondNumber: number,
-  setCardBackDiamondNumber: any,
-  cardBackColoursIndex: number,
-  setCardBackColoursIndex: any,
-  colourSets: string[][],
-  setColourSets: any,
-  pileCards: PileCardsType
-  setPileCards: any,
+export type HandCardsType = {
+  [handTypes.Front]: CardType[],
+  [handTypes.Back]: CardType[],
+  [handTypes.Left]: CardType[],
+  [handTypes.Right]: CardType[],
 }
+
+type AppContextValueType = {
+  cardBackDiamondNumber: number
+  setCardBackDiamondNumber: any
+  cardBackColoursIndex: number
+  setCardBackColoursIndex: any
+  colourSets: string[][]
+  setColourSets: any
+  pileCards: PileCardsType
+  setPileCards: any
+  handCards: HandCardsType
+  setHandCards: any
+}
+
+const cards = [
+  { value: 2, suit: Suits.Clubs },
+  { value: 3, suit: Suits.Spades },
+  { value: 4, suit: Suits.Diamonds },
+  { value: 5, suit: Suits.Hearts },
+  { value: 6, suit: Suits.Clubs },
+  { value: 7, suit: Suits.Spades },
+  { value: 8, suit: Suits.Diamonds },
+]
 
 const defaultAppContextValue: AppContextValueType = {
   cardBackDiamondNumber: 6,
@@ -29,7 +49,9 @@ const defaultAppContextValue: AppContextValueType = {
   colourSets: defaultColourSets,
   setColourSets: () => {},
   pileCards: {},
-  setPileCards: () => {}
+  setPileCards: () => {},
+  handCards: { front: cards, back: cards, left: cards, right: cards },
+  setHandCards: () => {},
 }
 
 export const AppContext = createContext(defaultAppContextValue)
@@ -44,6 +66,7 @@ export const AppContextProvider = ({ children, values }: AppContextProviderProps
   const [cardBackColoursIndex, setCardBackColoursIndex] = useState(0)
   const [colourSets, setColourSets] = useState(defaultColourSets)
   const [pileCards, setPileCards] = useState({})
+  const [handCards, setHandCards] = useState({ front: cards, back: cards, left: cards, right: cards })
 
   return <AppContext.Provider value={
     {
@@ -55,6 +78,8 @@ export const AppContextProvider = ({ children, values }: AppContextProviderProps
       setColourSets,
       pileCards,
       setPileCards,
+      handCards,
+      setHandCards,
       ...values
     }
   }>
