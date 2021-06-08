@@ -101,13 +101,13 @@ export const Card = ({ card, hidden, movable = false, uid, handType = handTypes.
         handleResize(selfRectangleRef, pileRectangleRef, pileCardSpaceRectangleRef, uid, handType)
       )
     }
-  },[uid])
+  },[handType, uid])
 
   useEffect(() => {
     selfRectangleRef.current = document.getElementById(uid)?.getBoundingClientRect()
     pileRectangleRef.current = document.getElementById('pile')?.getBoundingClientRect()
     pileCardSpaceRectangleRef.current = document.getElementById(`${handType}CardSpace`)?.getBoundingClientRect()
-  }, [uid])
+  }, [handType, uid])
 
   useEffect(() => {
     setAnimation(getAnimation(isCardInPile, selfRectangleRef.current, pileCardSpaceRectangleRef.current, card))
