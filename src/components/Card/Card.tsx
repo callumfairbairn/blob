@@ -37,6 +37,7 @@ type CardProps = {
   movable?: boolean
   uid: string
   handType?: handTypes
+  aiWantsToMoveThisCard?: boolean
 }
 
 const isPositionInsidePile = (mouseX: number, mouseY: number, pileRectangle: DOMRect | undefined): boolean => {
@@ -59,13 +60,13 @@ const handleResize = (
   pileCardSpaceRectangleRef.current = document.getElementById(`${handType}CardSpace`)?.getBoundingClientRect()
 }
 
-const getAnimation = (isCardInPile: boolean, selfRectangle: DOMRect | undefined, frontCardSpaceRectangle: DOMRect | undefined, card: CardType) => {
-  if (isCardInPile && selfRectangle && frontCardSpaceRectangle) {
-    const horizontalRestraint = frontCardSpaceRectangle.x - selfRectangle.x
-    const verticalRestraint = frontCardSpaceRectangle.y - selfRectangle.y
+const getAnimation = (selfRectangle: DOMRect | undefined, pileCardSpaceRectangle: DOMRect | undefined, card: CardType) => {
+  if (selfRectangle && pileCardSpaceRectangle) {
+    const horizontalRestraint = pileCardSpaceRectangle.x - selfRectangle.x
+    const verticalRestraint = pileCardSpaceRectangle.y - selfRectangle.y
     return { x: horizontalRestraint, y: verticalRestraint }
   }
-  return { x: 0, y: 0 }
+  return defaultAnimation
 }
 
 const updatePileCards = (pileCards: PileCardsType, card: CardType, handType: handTypes, setPileCards: any) => {
@@ -80,14 +81,18 @@ const updateHandCards = (handCards: HandCardsType, card: CardType, handType: han
   setHandCards(handCardsClone)
 }
 
-export const Card = ({ card, hidden, movable = false, uid, handType = handTypes.Front}: CardProps) => {
-  const [isCardInPile, setIsCardInPile] = useState(false)
-  const [animation, setAnimation] = useState(defaultAnimation)
-  const { pileCards, setPileCards, handCards, setHandCards, setTurn } = useContext(AppContext)
+
+export const Card = ({ card, hidden, movable = false, uid, handType = handTypes.Front, aiWantsToMoveThisCard = false }: CardProps) => {
+  const [isCardOverPile, setIsCardOverPile] = useState(false)
+  const { pileCards, setPileCards, handCards, setHandCards, turn, setTurn } = useContext(AppContext)
   const className = (card.suit === Suits.Clubs || card.suit === Suits.Spades) ? 'blackCard' : 'redCard'
   const selfRectangleRef = useRef<DOMRect | undefined>(undefined)
   const pileRectangleRef = useRef<DOMRect | undefined>(undefined)
   const pileCardSpaceRectangleRef = useRef<DOMRect | undefined>(undefined)
+
+  const [animation, setAnimation] = useState(
+    aiWantsToMoveThisCard ? getAnimation(selfRectangleRef.current, pileCardSpaceRectangleRef.current, card) : defaultAnimation
+  )
 
   useEffect(() => {
     window.addEventListener(
@@ -110,12 +115,16 @@ export const Card = ({ card, hidden, movable = false, uid, handType = handTypes.
   }, [handType, uid])
 
   useEffect(() => {
-    setAnimation(getAnimation(isCardInPile, selfRectangleRef.current, pileCardSpaceRectangleRef.current, card))
-  }, [card, isCardInPile])
+    setAnimation(isCardOverPile ? getAnimation(selfRectangleRef.current, pileCardSpaceRectangleRef.current, card) : defaultAnimation)
+  }, [card, isCardOverPile])
 
   useEffect(() => {
-    setIsCardInPile(false)
-  }, [setIsCardInPile, pileCards])
+    setIsCardOverPile(false)
+  }, [setIsCardOverPile, pileCards])
+
+  useEffect(() => {
+    setAnimation(aiWantsToMoveThisCard ? getAnimation(selfRectangleRef.current, pileCardSpaceRectangleRef.current, card) : defaultAnimation)
+  }, [turn, aiWantsToMoveThisCard, card])
 
   return (
     <motion.div
@@ -130,7 +139,7 @@ export const Card = ({ card, hidden, movable = false, uid, handType = handTypes.
       animate={animation}
       onDragEnd={
         (event: PointerEvent) => {
-          setIsCardInPile(isPositionInsidePile(event.x, event.y, pileRectangleRef.current))
+          setIsCardOverPile(isPositionInsidePile(event.x, event.y, pileRectangleRef.current))
         }
       }
       layout="position"

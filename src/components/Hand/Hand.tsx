@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { CardType } from '../../types/card'
 import { Card } from '../Card/Card'
 import './Hand.scss'
@@ -14,6 +14,8 @@ type HandProps = {
 
 export const Hand = ({ cards, handType }: HandProps) => {
   const { turn } = useContext(AppContext)
+  const [cardToMove, setCardToMove] = useState<CardType | undefined>()
+
   const getZIndex = (index: number) => {
     if (handType === handTypes.Front || handType === handTypes.Left) {
     return cards.length - index
@@ -21,7 +23,12 @@ export const Hand = ({ cards, handType }: HandProps) => {
     return cards.length + index
   }
   const getUID = (card: CardType) => `${card.suit}-${card.value}-${handType}`
-  const movable = handType === turn
+  const movable = handType === handTypes.Front
+  const aiTurn = handType !== handTypes.Front && turn === handType
+
+  useEffect(() => {
+    setCardToMove(aiTurn ? cards[Math.floor(Math.random() * cards.length)] : undefined)
+  }, [aiTurn, cards, turn])
 
   return (
     <div className="hand" data-testid="hand" id={`${handType}Hand`}>
@@ -44,6 +51,7 @@ export const Hand = ({ cards, handType }: HandProps) => {
             movable={movable}
             uid={getUID(card)}
             handType={handType}
+            aiWantsToMoveThisCard={card === cardToMove}
           />
         </motion.div>
       )}

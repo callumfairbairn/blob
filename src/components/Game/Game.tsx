@@ -1,7 +1,7 @@
 import { Hand } from '../Hand/Hand'
 import { handTypes } from '../../enums/handTypes'
 import { Pile } from '../Pile/Pile'
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { AppContext } from '../../AppContext/AppContext'
 
 export const Game = () => {
