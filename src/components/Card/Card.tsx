@@ -33,7 +33,6 @@ const CardContent = ({ card }: CardContentProps) => (<>
 
 type CardProps = {
   card: CardType
-  zIndex?: number
   hidden: boolean
   movable?: boolean
   uid: string
@@ -79,7 +78,7 @@ const updateHandCards = (handCards: HandCardsType, card: CardType, handType: han
   setHandCards(handCardsClone)
 }
 
-export const Card = ({ card, zIndex, hidden, movable = false, uid, handType}: CardProps) => {
+export const Card = ({ card, hidden, movable = false, uid, handType}: CardProps) => {
   const [isCardInPile, setIsCardInPile] = useState(false)
   const [animation, setAnimation] = useState(defaultAnimation)
   const { pileCards, setPileCards, handCards, setHandCards } = useContext(AppContext)
@@ -121,7 +120,6 @@ export const Card = ({ card, zIndex, hidden, movable = false, uid, handType}: Ca
       className={`${className} card`}
       data-testid="card"
       id={uid}
-      style={{ zIndex }}
       drag={movable}
       dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
       dragElastic={0.85}

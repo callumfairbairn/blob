@@ -3,6 +3,7 @@ import { CardType } from '../../types/card'
 import { Card } from '../Card/Card'
 import './Hand.scss'
 import { handTypes } from '../../enums/handTypes'
+import { motion } from 'framer-motion'
 
 type HandProps = {
   cards: CardType[]
@@ -18,21 +19,31 @@ export const Hand = ({ cards, handType }: HandProps) => {
     return cards.length + index
   }
   const getUID = (card: CardType) => `${card.suit}-${card.value}-${handType}`
+  const movable = handType === handTypes.Front
 
   return (
     <div className="hand" data-testid="hand" id={`${handType}Hand`}>
       {cards.map((card, index) =>
-        <div className={`${handType}HandCard`} style={{ zIndex: getZIndex(index) }} key={getUID(card)}>
+        <motion.div
+          className={`${handType}HandCard`}
+          style={{ zIndex: getZIndex(index) }}
+          key={getUID(card)}
+          whileHover={ movable ? {
+            scale: 1.1,
+            transition: { duration: 0.2 },
+            zIndex: 99,
+            position: 'relative',
+          } : {}}
+        >
           <Card
             card={card}
-            zIndex={getZIndex(index)}
             key={getUID(card)}
             hidden={handType !== handTypes.Front}
-            movable={handType === handTypes.Front}
+            movable={movable}
             uid={getUID(card)}
             handType={handType}
           />
-        </div>
+        </motion.div>
       )}
     </div>
   )

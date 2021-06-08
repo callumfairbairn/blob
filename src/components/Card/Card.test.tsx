@@ -23,7 +23,7 @@ describe('Card', () => {
   it('does not render suit or number if hidden is true', () => {
     const card = { value: 4, suit: Suits.Clubs, }
 
-    render(<Card card={card} hidden={true} zIndex={3} uid='asd'/>)
+    render(<Card card={card} hidden={true} uid='asd'/>)
 
     expect(screen.queryByText(card.value)).not.toBeInTheDocument();
     expect(screen.queryAllByText(card.suit).length).toEqual(0);
