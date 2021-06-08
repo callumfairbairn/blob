@@ -4,6 +4,7 @@ import { handTypes } from '../enums/handTypes'
 import { CardType } from '../types/card'
 import { Suits } from '../enums/suits'
 
+
 export type PileCardsType = {
   [handTypes.Front]?: CardType,
   [handTypes.Back]?: CardType,
@@ -29,7 +30,10 @@ type AppContextValueType = {
   setPileCards: any
   handCards: HandCardsType
   setHandCards: any
+  turn: handTypes
+  setTurn: any
 }
+
 
 const cards = [
   { value: 2, suit: Suits.Clubs },
@@ -52,6 +56,15 @@ const defaultAppContextValue: AppContextValueType = {
   setPileCards: () => {},
   handCards: { front: cards, back: cards, left: cards, right: cards },
   setHandCards: () => {},
+  turn: handTypes.Front,
+  setTurn: () => {}
+}
+
+export const nextTurnMap = {
+  [handTypes.Front]: handTypes.Left,
+  [handTypes.Left]: handTypes.Back,
+  [handTypes.Back]: handTypes.Right,
+  [handTypes.Right]: handTypes.Front
 }
 
 export const AppContext = createContext(defaultAppContextValue)
@@ -67,6 +80,7 @@ export const AppContextProvider = ({ children, values }: AppContextProviderProps
   const [colourSets, setColourSets] = useState(defaultColourSets)
   const [pileCards, setPileCards] = useState({})
   const [handCards, setHandCards] = useState({ front: cards, back: cards, left: cards, right: cards })
+  const [turn, setTurn] = useState(handTypes.Front)
 
   return <AppContext.Provider value={
     {
@@ -80,6 +94,8 @@ export const AppContextProvider = ({ children, values }: AppContextProviderProps
       setPileCards,
       handCards,
       setHandCards,
+      turn,
+      setTurn,
       ...values
     }
   }>

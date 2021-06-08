@@ -5,7 +5,7 @@ import { Suits } from '../../enums/suits'
 import { CardBack } from '../CardBack/CardBack'
 import { motion } from 'framer-motion'
 import { handTypes } from '../../enums/handTypes'
-import { AppContext, HandCardsType, PileCardsType } from '../../AppContext/AppContext'
+import { AppContext, HandCardsType, nextTurnMap, PileCardsType } from '../../AppContext/AppContext'
 
 const defaultAnimation = { x: 0, y: 0 }
 
@@ -81,7 +81,7 @@ const updateHandCards = (handCards: HandCardsType, card: CardType, handType: han
 export const Card = ({ card, hidden, movable = false, uid, handType}: CardProps) => {
   const [isCardInPile, setIsCardInPile] = useState(false)
   const [animation, setAnimation] = useState(defaultAnimation)
-  const { pileCards, setPileCards, handCards, setHandCards } = useContext(AppContext)
+  const { pileCards, setPileCards, handCards, setHandCards, setTurn } = useContext(AppContext)
   const className = (card.suit === Suits.Clubs || card.suit === Suits.Spades) ? 'blackCard' : 'redCard'
   const selfRectangleRef = useRef<DOMRect | undefined>(undefined)
   const pileRectangleRef = useRef<DOMRect | undefined>(undefined)
@@ -136,6 +136,7 @@ export const Card = ({ card, hidden, movable = false, uid, handType}: CardProps)
         if (Math.floor(definition.x) !== 0 && Math.floor(definition.y) !== 0 && handType && pileCards) {
           updatePileCards(pileCards, card, handType, setPileCards)
           updateHandCards(handCards, card, handType, setHandCards)
+          setTurn(nextTurnMap[handType])
         }
       }}
     >

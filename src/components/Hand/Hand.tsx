@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { CardType } from '../../types/card'
 import { Card } from '../Card/Card'
 import './Hand.scss'
 import { handTypes } from '../../enums/handTypes'
 import { motion } from 'framer-motion'
+import { AppContext } from '../../AppContext/AppContext'
 
 type HandProps = {
   cards: CardType[]
@@ -12,6 +13,7 @@ type HandProps = {
 
 
 export const Hand = ({ cards, handType }: HandProps) => {
+  const { turn } = useContext(AppContext)
   const getZIndex = (index: number) => {
     if (handType === handTypes.Front || handType === handTypes.Left) {
     return cards.length - index
@@ -19,7 +21,7 @@ export const Hand = ({ cards, handType }: HandProps) => {
     return cards.length + index
   }
   const getUID = (card: CardType) => `${card.suit}-${card.value}-${handType}`
-  const movable = handType === handTypes.Front
+  const movable = handType === turn
 
   return (
     <div className="hand" data-testid="hand" id={`${handType}Hand`}>
