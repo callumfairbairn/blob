@@ -136,9 +136,9 @@ export const Card = ({ card, hidden, movable = false, uid, handType = handTypes.
       layout="position"
       onAnimationComplete={(definition: any) => {
         if (Math.floor(definition.x) !== 0 && Math.floor(definition.y) !== 0 && handType && pileCards) {
+          setTurn(nextTurnMap[handType])
           updatePileCards(pileCards, card, handType, setPileCards)
           updateHandCards(handCards, card, handType, setHandCards)
-          setTurn(nextTurnMap[handType])
         }
       }}
     >
