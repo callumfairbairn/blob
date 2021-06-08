@@ -50,11 +50,13 @@ const isPositionInsidePile = (mouseX: number, mouseY: number, pileRectangle: DOM
 const handleResize = (
   selfRectangleRef: React.MutableRefObject<DOMRect | undefined>,
   pileRectangleRef: React.MutableRefObject<DOMRect | undefined>,
-  frontCardSpaceRectangleRef: React.MutableRefObject<DOMRect | undefined>,
-  uid: string) => () => {
+  pileCardSpaceRectangleRef: React.MutableRefObject<DOMRect | undefined>,
+  uid: string,
+  handType: handTypes
+) => () => {
   selfRectangleRef.current = document.getElementById(uid)?.getBoundingClientRect()
   pileRectangleRef.current = document.getElementById('pile')?.getBoundingClientRect()
-  frontCardSpaceRectangleRef.current = document.getElementById('frontCardSpace')?.getBoundingClientRect()
+  pileCardSpaceRectangleRef.current = document.getElementById(`${handType}CardSpace`)?.getBoundingClientRect()
 }
 
 const getAnimation = (isCardInPile: boolean, selfRectangle: DOMRect | undefined, frontCardSpaceRectangle: DOMRect | undefined, card: CardType) => {
@@ -78,25 +80,25 @@ const updateHandCards = (handCards: HandCardsType, card: CardType, handType: han
   setHandCards(handCardsClone)
 }
 
-export const Card = ({ card, hidden, movable = false, uid, handType}: CardProps) => {
+export const Card = ({ card, hidden, movable = false, uid, handType = handTypes.Front}: CardProps) => {
   const [isCardInPile, setIsCardInPile] = useState(false)
   const [animation, setAnimation] = useState(defaultAnimation)
   const { pileCards, setPileCards, handCards, setHandCards, setTurn } = useContext(AppContext)
   const className = (card.suit === Suits.Clubs || card.suit === Suits.Spades) ? 'blackCard' : 'redCard'
   const selfRectangleRef = useRef<DOMRect | undefined>(undefined)
   const pileRectangleRef = useRef<DOMRect | undefined>(undefined)
-  const frontCardSpaceRectangleRef = useRef<DOMRect | undefined>(undefined)
+  const pileCardSpaceRectangleRef = useRef<DOMRect | undefined>(undefined)
 
   useEffect(() => {
     window.addEventListener(
       'resize',
-      handleResize(selfRectangleRef, pileRectangleRef, frontCardSpaceRectangleRef, uid)
+      handleResize(selfRectangleRef, pileRectangleRef, pileCardSpaceRectangleRef, uid, handType)
     )
 
     return () => {
       window.removeEventListener(
         'resize',
-        handleResize(selfRectangleRef, pileRectangleRef, frontCardSpaceRectangleRef, uid)
+        handleResize(selfRectangleRef, pileRectangleRef, pileCardSpaceRectangleRef, uid, handType)
       )
     }
   },[uid])
@@ -104,11 +106,11 @@ export const Card = ({ card, hidden, movable = false, uid, handType}: CardProps)
   useEffect(() => {
     selfRectangleRef.current = document.getElementById(uid)?.getBoundingClientRect()
     pileRectangleRef.current = document.getElementById('pile')?.getBoundingClientRect()
-    frontCardSpaceRectangleRef.current = document.getElementById('frontCardSpace')?.getBoundingClientRect()
+    pileCardSpaceRectangleRef.current = document.getElementById(`${handType}CardSpace`)?.getBoundingClientRect()
   }, [uid])
 
   useEffect(() => {
-    setAnimation(getAnimation(isCardInPile, selfRectangleRef.current, frontCardSpaceRectangleRef.current, card))
+    setAnimation(getAnimation(isCardInPile, selfRectangleRef.current, pileCardSpaceRectangleRef.current, card))
   }, [card, isCardInPile])
 
   useEffect(() => {
