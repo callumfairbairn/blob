@@ -6,6 +6,7 @@ import { CardBack } from '../CardBack/CardBack'
 import { motion } from 'framer-motion'
 import { handTypes } from '../../enums/handTypes'
 import { AppContext, HandCardsType, nextTurnMap, PileCardsType } from '../../AppContext/AppContext'
+import { cardValues } from '../../enums/cardValues'
 
 const defaultAnimation = { x: 0, y: 0 }
 
@@ -13,23 +14,23 @@ type CardContentProps = {
   card: CardType
 }
 
-const CardContent = ({ card }: CardContentProps) => (<>
+const CardContent = ({ card: { suit, value } }: CardContentProps) => <>
   <div className="suit">
-    {card.suit}
+    {suit}
   </div>
   <div className="suit">
-    {card.suit}
+    {suit}
   </div>
   <div className="number">
-    {card.value}
+    {cardValues[value]}
   </div>
   <div className="suit">
-    {card.suit}
+    {suit}
   </div>
   <div className="suit">
-    {card.suit}
+    {suit}
   </div>
-</>)
+</>
 
 type CardProps = {
   card: CardType

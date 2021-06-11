@@ -1,6 +1,7 @@
 import { Suits } from './enums/suits'
+import { CardType } from './types/card'
 
-export const initialDeck = [
+export const initialDeck: CardType[] = [
   { value: 2, suit: Suits.Clubs },
   { value: 3, suit: Suits.Clubs },
   { value: 4, suit: Suits.Clubs },
