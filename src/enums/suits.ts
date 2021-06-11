@@ -3,5 +3,4 @@ export enum Suits {
   Diamonds = "♦",
   Hearts = "♥",
   Spades = "♠"
-
 }

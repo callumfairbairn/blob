@@ -2,8 +2,7 @@ import React, { createContext, useState } from 'react'
 import { defaultColourSets } from '../defaultColourSets'
 import { handTypes } from '../enums/handTypes'
 import { CardType } from '../types/card'
-import { Suits } from '../enums/suits'
-
+import { gameStates } from '../enums/gameStates'
 
 export type PileCardsType = {
   [handTypes.Front]?: CardType,
@@ -32,18 +31,9 @@ type AppContextValueType = {
   setHandCards: any
   turn: handTypes
   setTurn: any
+  gameState: gameStates
+  setGameState: any
 }
-
-
-const cards = [
-  { value: 2, suit: Suits.Clubs },
-  { value: 3, suit: Suits.Spades },
-  { value: 4, suit: Suits.Diamonds },
-  { value: 5, suit: Suits.Hearts },
-  { value: 6, suit: Suits.Clubs },
-  { value: 7, suit: Suits.Spades },
-  { value: 8, suit: Suits.Diamonds },
-]
 
 const defaultAppContextValue: AppContextValueType = {
   cardBackDiamondNumber: 6,
@@ -54,10 +44,12 @@ const defaultAppContextValue: AppContextValueType = {
   setColourSets: () => {},
   pileCards: {},
   setPileCards: () => {},
-  handCards: { front: cards, back: cards, left: cards, right: cards },
+  handCards: { front: [], back: [], left: [], right: [] },
   setHandCards: () => {},
   turn: handTypes.Front,
-  setTurn: () => {}
+  setTurn: () => {},
+  gameState: gameStates.Deal,
+  setGameState: () => {}
 }
 
 export const nextTurnMap = {
@@ -79,8 +71,9 @@ export const AppContextProvider = ({ children, values }: AppContextProviderProps
   const [cardBackColoursIndex, setCardBackColoursIndex] = useState(0)
   const [colourSets, setColourSets] = useState(defaultColourSets)
   const [pileCards, setPileCards] = useState({})
-  const [handCards, setHandCards] = useState({ front: cards, back: cards, left: cards, right: cards })
+  const [handCards, setHandCards] = useState({ front: [], back: [], left: [], right: [] })
   const [turn, setTurn] = useState(handTypes.Front)
+  const [gameState, setGameState] = useState(gameStates.Deal)
 
   return <AppContext.Provider value={
     {
@@ -96,6 +89,8 @@ export const AppContextProvider = ({ children, values }: AppContextProviderProps
       setHandCards,
       turn,
       setTurn,
+      gameState,
+      setGameState,
       ...values
     }
   }>
