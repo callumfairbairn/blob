@@ -119,10 +119,6 @@ export const Card = ({ card, hidden, movable = false, uid, handType = handTypes.
   }, [card, isCardOverPile])
 
   useEffect(() => {
-    setIsCardOverPile(false)
-  }, [setIsCardOverPile, pileCards])
-
-  useEffect(() => {
     setAnimation(aiWantsToMoveThisCard ? getAnimation(selfRectangleRef.current, pileCardSpaceRectangleRef.current, card) : defaultAnimation)
   }, [turn, aiWantsToMoveThisCard, card])
 
