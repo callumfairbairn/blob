@@ -1,22 +1,9 @@
 import React, { createContext, useState } from 'react'
 import { defaultColourSets } from '../defaultColourSets'
 import { handTypes } from '../enums/handTypes'
-import { CardType } from '../types/card'
 import { gameStates } from '../enums/gameStates'
-
-export type PileCardsType = {
-  [handTypes.Front]?: CardType,
-  [handTypes.Back]?: CardType,
-  [handTypes.Left]?: CardType,
-  [handTypes.Right]?: CardType,
-}
-
-export type HandCardsType = {
-  [handTypes.Front]: CardType[],
-  [handTypes.Back]: CardType[],
-  [handTypes.Left]: CardType[],
-  [handTypes.Right]: CardType[],
-}
+import { PileCardsType } from '../types/pileCardsType'
+import { HandCardsType } from '../types/handCardsType'
 
 type AppContextValueType = {
   cardBackDiamondNumber: number

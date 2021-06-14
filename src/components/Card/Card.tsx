@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import './Card.scss'
-import { CardType } from '../../types/card'
 import { Suits } from '../../enums/suits'
 import { CardBack } from '../CardBack/CardBack'
 import { motion } from 'framer-motion'
 import { handTypes } from '../../enums/handTypes'
-import { AppContext, HandCardsType, nextTurnMap, PileCardsType } from '../../AppContext/AppContext'
+import { AppContext, nextTurnMap } from '../../AppContext/AppContext'
 import { cardValues } from '../../enums/cardValues'
+import { CardType } from '../../types/cardType'
+import { PileCardsType } from '../../types/pileCardsType'
+import { HandCardsType } from '../../types/handCardsType'
 
 const defaultAnimation = { x: 0, y: 0 }
 

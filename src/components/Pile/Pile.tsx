@@ -1,8 +1,8 @@
 import React from 'react'
-import { CardType } from '../../types/card'
 import { Card } from '../Card/Card'
 import './Pile.scss'
 import { handTypes } from '../../enums/handTypes'
+import { CardType } from '../../types/cardType'
 
 type PileProps = {
   [handTypes.Front]?: CardType,

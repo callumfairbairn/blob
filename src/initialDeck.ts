@@ -1,5 +1,5 @@
 import { Suits } from './enums/suits'
-import { CardType } from './types/card'
+import { CardType } from './types/cardType'
 
 export const initialDeck: CardType[] = [
   { value: 2, suit: Suits.Clubs },

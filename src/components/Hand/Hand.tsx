@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { CardType } from '../../types/card'
 import { Card } from '../Card/Card'
 import './Hand.scss'
 import { handTypes } from '../../enums/handTypes'
 import { motion } from 'framer-motion'
 import { AppContext } from '../../AppContext/AppContext'
+import { CardType } from '../../types/cardType'
 
 type HandProps = {
   cards: CardType[]
