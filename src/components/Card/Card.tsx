@@ -7,10 +7,14 @@ import { handTypes } from '../../enums/handTypes'
 import { AppContext, nextTurnMap } from '../../AppContext/AppContext'
 import { cardValues } from '../../enums/cardValues'
 import { CardType } from '../../types/cardType'
-import { PileCardsType } from '../../types/pileCardsType'
-import { HandCardsType } from '../../types/handCardsType'
-
-const defaultAnimation = { x: 0, y: 0 }
+import {
+  defaultAnimation,
+  getAnimation,
+  handleResize,
+  isPositionInsidePile,
+  updateHandCards,
+  updatePileCards
+} from './helpers'
 
 type CardContentProps = {
   card: CardType
@@ -42,48 +46,6 @@ type CardProps = {
   handType?: handTypes
   aiWantsToMoveThisCard?: boolean
 }
-
-const isPositionInsidePile = (mouseX: number, mouseY: number, pileRectangle: DOMRect | undefined): boolean => {
-  if (pileRectangle) {
-    const { x, y, width, height } = pileRectangle
-    return (mouseX >= x && mouseX <= x + width) && (mouseY >= y && mouseY <= y + height)
-  }
-  return false
-}
-
-const handleResize = (
-  selfRectangleRef: React.MutableRefObject<DOMRect | undefined>,
-  pileRectangleRef: React.MutableRefObject<DOMRect | undefined>,
-  pileCardSpaceRectangleRef: React.MutableRefObject<DOMRect | undefined>,
-  uid: string,
-  handType: handTypes
-) => () => {
-  selfRectangleRef.current = document.getElementById(uid)?.getBoundingClientRect()
-  pileRectangleRef.current = document.getElementById('pile')?.getBoundingClientRect()
-  pileCardSpaceRectangleRef.current = document.getElementById(`${handType}CardSpace`)?.getBoundingClientRect()
-}
-
-const getAnimation = (selfRectangle: DOMRect | undefined, pileCardSpaceRectangle: DOMRect | undefined, card: CardType) => {
-  if (selfRectangle && pileCardSpaceRectangle) {
-    const horizontalRestraint = pileCardSpaceRectangle.x - selfRectangle.x
-    const verticalRestraint = pileCardSpaceRectangle.y - selfRectangle.y
-    return { x: horizontalRestraint, y: verticalRestraint }
-  }
-  return defaultAnimation
-}
-
-const updatePileCards = (pileCards: PileCardsType, card: CardType, handType: handTypes, setPileCards: any) => {
-  const pileCardsClone = { ...pileCards }
-  pileCardsClone[handType] = card
-  setPileCards(pileCardsClone)
-}
-
-const updateHandCards = (handCards: HandCardsType, card: CardType, handType: handTypes, setHandCards: any) => {
-  const handCardsClone = { ...handCards }
-  handCardsClone[handType] = handCardsClone[handType].filter(handCard => handCard !== card)
-  setHandCards(handCardsClone)
-}
-
 
 export const Card = ({ card, hidden, movable = false, uid, handType = handTypes.Front, aiWantsToMoveThisCard = false }: CardProps) => {
   const [isCardOverPile, setIsCardOverPile] = useState(false)
