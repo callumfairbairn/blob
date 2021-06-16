@@ -6,6 +6,7 @@ import { AppContext } from '../../AppContext/AppContext'
 import { gameStates } from '../../enums/gameStates'
 import { initialDeck } from '../../initialDeck'
 import { HandCardsType } from '../../types/handCardsType'
+import { sortHands } from './sortHands'
 
 const dealHands = (setHandCards: (newHandCards: HandCardsType) => void, setGameState: (newGameState: gameStates) => void) => {
   const newHandCards: HandCardsType = { front: [], back: [], left: [], right: [] }
@@ -24,7 +25,8 @@ const dealHands = (setHandCards: (newHandCards: HandCardsType) => void, setGameS
       }
     })
   }
-  setHandCards(newHandCards)
+  const sortedHandCards = sortHands(newHandCards)
+  setHandCards(sortedHandCards)
   setGameState(gameStates.Play)
 }
 
